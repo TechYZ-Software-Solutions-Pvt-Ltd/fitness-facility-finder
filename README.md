@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](https://www.docker.com/)
+[![Streamlit Cloud](https://img.shields.io/badge/Streamlit%20Cloud-Ready-FF4B4B.svg)](https://share.streamlit.io/)
 
 A powerful open-source Streamlit application that helps you find fitness facilities (gyms, yoga studios, fitness centers) in your area using Google Places API and web scraping technology.
 
@@ -12,28 +12,25 @@ A powerful open-source Streamlit application that helps you find fitness facilit
 - **🔍 Smart Search**: Find fitness facilities by location and type
 - **📊 Detailed Information**: Get contact details, ratings, and more
 - **🌍 Global Coverage**: Search in multiple countries and cities
-- **📱 Responsive Design**: Works on desktop and mobile devices
+- **📱 Mobile Responsive**: Works perfectly on desktop and mobile devices
 - **🔒 Secure**: Built-in security features and rate limiting
 - **📥 Export Data**: Download results as CSV files
-- **🐳 Docker Ready**: Easy deployment with Docker
-- **☁️ Cloud Deployable**: Deploy to any cloud platform
+- **☁️ Free Deployment**: Deploy to Streamlit Cloud for free
+- **🚀 One-Click Deploy**: Easy deployment with Streamlit Community Cloud
 
 ## 🚀 Quick Start
 
-### Option 1: Docker (Recommended)
+### Option 1: Streamlit Cloud (Recommended - FREE!)
 
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/fitness-facility-finder.git
-cd fitness-facility-finder
+[![Deploy to Streamlit Cloud](https://img.shields.io/badge/Deploy%20to-Streamlit%20Cloud-FF4B4B?style=for-the-badge&logo=streamlit)](https://share.streamlit.io/)
 
-# Set up environment
-cp config/env.example .env
-# Edit .env with your Google Places API key
-
-# Deploy with Docker
-cd deploy && docker-compose up -d
-```
+1. **Fork this repository** on GitHub
+2. **Go to [share.streamlit.io](https://share.streamlit.io)**
+3. **Sign in with GitHub**
+4. **Click "New app"**
+5. **Select your forked repository**
+6. **Set main file path**: `src/app.py`
+7. **Deploy!** 🎉
 
 ### Option 2: Local Development
 
