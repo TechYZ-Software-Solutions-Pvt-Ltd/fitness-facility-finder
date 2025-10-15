@@ -77,6 +77,11 @@ st.markdown("""
     /* Mobile Responsive Styles */
     @media (max-width: 768px) {
         
+        /* Enhanced header font size for tablets (15% increase) */
+        div[style*="font-family: 'Shadows Into Light'"] h1 {
+            font-size: 3.8rem !important;
+        }
+        
         /* Make form elements stack vertically on mobile */
         .stSelectbox > div > div {
             width: 100% !important;
@@ -127,6 +132,11 @@ st.markdown("""
         /* Further optimize for very small screens */
         .stMarkdown h1 {
             font-size: 1.2rem !important;
+        }
+        
+        /* Enhanced header font size for mobile (30% increase) */
+        div[style*="font-family: 'Shadows Into Light'"] h1 {
+            font-size: 4.3rem !important;
         }
         
         .stMarkdown h2 {
@@ -188,46 +198,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# GYM360 Logo and Header with Enhanced Security Protection
+# Simple scroll to top fix
 st.markdown("""
 <style>
-    /* Enhanced security protection for Streamlit images */
-    div[data-testid="stImage"] img {
-        -webkit-user-drag: none;
-        -khtml-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-        user-drag: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-touch-callout: none;
-        pointer-events: none;
-    }
-    
-    /* Disable right-click and new tab functionality */
-    div[data-testid="stImage"] {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        pointer-events: none;
-    }
-    
-    /* Prevent image from being opened in new tab */
-    div[data-testid="stImage"] a {
-        pointer-events: none;
-    }
-    
-    /* Disable all image interactions */
-    div[data-testid="stImage"] * {
-        pointer-events: none;
-    }
-    
     /* Simple scroll to top fix */
     html, body {
         scroll-behavior: auto !important;
@@ -240,10 +213,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Main heading 
+# Main heading with enhanced font styling
 st.markdown("""
 <div style="text-align: center; margin-top: 0px; margin-bottom: 30px;">
-    <h1 style="color: #2E86AB; font-family: 'Shadows Into Light', cursive; font-weight: bold; margin: 0; font-size: 2.875rem;"> 
+    <h1 style="color: #000000; font-family: 'Shadows Into Light', cursive; font-weight: bold; margin: 0; font-size: 3.3rem;"> 
         JustList
     </h1>
 </div>
