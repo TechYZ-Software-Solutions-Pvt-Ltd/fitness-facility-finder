@@ -249,48 +249,24 @@ st.markdown("""
     div[data-testid="stImage"] * {
         pointer-events: none;
     }
+    
+    /* Simple scroll to top fix */
+    html, body {
+        scroll-behavior: auto !important;
+    }
+    
+    /* Force page to start at top */
+    .main .block-container {
+        padding-top: 1rem !important;
+    }
 </style>
-
-<script>
-// Ensure page starts at the top when loading - multiple approaches
-(function() {
-    // Immediate scroll
-    window.scrollTo(0, 0);
-    
-    // Scroll on load
-    window.addEventListener('load', function() {
-        window.scrollTo(0, 0);
-    });
-    
-    // Scroll on DOM ready
-    document.addEventListener('DOMContentLoaded', function() {
-        window.scrollTo(0, 0);
-    });
-    
-    // Scroll after a short delay to ensure Streamlit is ready
-    setTimeout(function() {
-        window.scrollTo(0, 0);
-    }, 100);
-    
-    // Additional scroll after longer delay
-    setTimeout(function() {
-        window.scrollTo(0, 0);
-    }, 500);
-})();
-</script>
 """, unsafe_allow_html=True)
 
-# Mobile responsive logo layout
-col1, col_center, col3 = st.columns([1, 2, 1])
-
-with col_center:
-    # GYM360 Logo - Mobile responsive
-    st.image("assets/gym360_logo.png", width=200)
-    
+# Main heading without logo
 st.markdown("""
-<div style="text-align: center; margin-top: 15px; margin-bottom: 40px;">
+<div style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
     <h1 style="color: #2E86AB; font-family: 'Arial', sans-serif; font-weight: bold; margin: 0; font-size: 2.5rem;">
-        Fitness Facility Finder
+        JustList
     </h1>
 </div>
 """, unsafe_allow_html=True)
@@ -693,14 +669,18 @@ if search_clicked:
         st.error("❌ **Google Places API Key is required!** Please enter your API key to continue.")
         st.markdown("""
         <script>
-        // Focus on the API key input field
+        // Focus on the API key input field only when there's an error
         setTimeout(function() {
             const input = document.querySelector('input[type="password"]');
             if (input) {
                 input.focus();
-                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Only scroll if the input is not already visible
+                const rect = input.getBoundingClientRect();
+                if (rect.top < 0 || rect.bottom > window.innerHeight) {
+                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             }
-        }, 100);
+        }, 500);
         </script>
         """, unsafe_allow_html=True)
     elif not city:
