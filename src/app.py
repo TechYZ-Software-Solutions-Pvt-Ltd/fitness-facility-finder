@@ -257,7 +257,7 @@ col1, col_center, col3 = st.columns([1, 2, 1])
 
 with col_center:
     # GYM360 Logo - Mobile responsive
-    st.image("../assets/gym360_logo.png", width=200)
+    st.image("assets/gym360_logo.png", width=200)
     
 st.markdown("""
 <div style="text-align: center; margin-top: 15px; margin-bottom: 40px;">
