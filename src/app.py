@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Security settings
-MAX_REQUESTS_PER_SESSION = 10
+MAX_REQUESTS_PER_SESSION = 50
 SESSION_TIMEOUT_MINUTES = 30
 
 # Initialize session state

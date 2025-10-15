@@ -1,197 +1,153 @@
 # 📁 Project Structure Guide
 
-This document explains the organized folder structure of the Fitness Facility Finder project.
+This document explains the organized folder structure of the Fitness Facility Finder project after cleanup and optimization.
 
-## 🏗️ Directory Structure
+## 🏗️ **Current Directory Structure**
 
 ```
-fitness-facility-finder/
-├── 📁 src/                    # Source Code
-│   ├── app.py                # Main Streamlit application
-│   └── main.py               # Google App Engine entry point
-├── 📁 assets/                # Static Assets
-│   └── gym360_logo.png       # Application logo
-├── 📁 config/                # Configuration Files
-│   ├── env.example           # Environment variables template
-│   └── .streamlit/           # Streamlit configuration
-│       └── config.toml       # Streamlit settings
-├── 📁 deploy/                # Deployment Files
-│   ├── Dockerfile            # Docker container configuration
-│   ├── docker-compose.yml    # Docker Compose setup
-│   ├── deploy.sh             # Linux/Mac deployment script
-│   ├── deploy.bat            # Windows deployment script
-│   ├── Procfile              # Heroku deployment configuration
-│   └── app.yaml              # Google App Engine configuration
-├── 📁 docs/                  # Documentation
-│   ├── CONTRIBUTING.md       # Contribution guidelines
-│   ├── DEPLOYMENT.md         # Deployment guide
-│   ├── QUICK_DEPLOY.md       # Quick deployment guide
-│   ├── GITHUB_SETUP.md       # GitHub repository setup
-│   ├── CODE_OF_CONDUCT.md    # Community code of conduct
-│   └── SECURITY.md           # Security policy
-├── run.py                    # Main entry point script
-├── setup.py                  # Python package setup
-├── Makefile                  # Development commands
-├── requirements.txt          # Python dependencies
-├── LICENSE                   # MIT License
-├── README.md                 # Main project documentation
-├── .gitignore                # Git ignore rules
-└── PROJECT_STRUCTURE.md      # This file
+📦 fitness-facility-finder/
+├── 📁 src/                       # Source Code
+│   └── app.py                   # Main Streamlit application
+├── 📁 assets/                   # Static Assets
+│   └── gym360_logo.png         # Application logo
+├── 📁 config/                   # Configuration Files
+│   ├── env.example             # Environment variables template
+│   └── .streamlit/             # Streamlit configuration
+│       └── config.toml         # Streamlit settings
+├── 📁 docs/                     # Documentation
+│   ├── CONTRIBUTING.md         # Contribution guidelines
+│   ├── CODE_OF_CONDUCT.md      # Community code of conduct
+│   └── SECURITY.md             # Security policy
+├── 📁 testing/                  # Testing Documentation
+│   ├── LOCAL_TESTING.md        # Local testing guide
+│   └── MOBILE_TESTING.md       # Mobile responsiveness testing
+├── 📄 .gitignore               # Git ignore rules
+├── 📄 LICENSE                  # MIT License
+├── 📄 README.md                # Main project documentation
+├── 📄 requirements.txt         # Python dependencies
+├── 📄 run.py                   # Application entry point
+├── 📄 PROJECT_STRUCTURE.md     # This file
+└── 📄 STREAMLIT_CLOUD_DEPLOY.md # Streamlit Cloud deployment guide
 ```
 
-## 📂 Directory Purposes
+## 📋 **File Descriptions**
 
-### 🎯 `src/` - Source Code
-- **Purpose**: Contains all application source code
-- **Files**:
-  - `app.py`: Main Streamlit application with all functionality
-  - `main.py`: Entry point for Google App Engine deployment
+### **Source Code (`src/`)**
+- **`app.py`**: Main Streamlit application with all functionality
+  - Mobile responsive design
+  - Google Places API integration
+  - Web scraping capabilities
+  - Security features and rate limiting
+  - CSV export functionality
 
-### 🎨 `assets/` - Static Assets
-- **Purpose**: Contains images, icons, and other static files
-- **Files**:
-  - `gym360_logo.png`: Application logo used in the UI
+### **Assets (`assets/`)**
+- **`gym360_logo.png`**: Application logo (secure, non-downloadable)
 
-### ⚙️ `config/` - Configuration
-- **Purpose**: Contains configuration files and templates
-- **Files**:
-  - `env.example`: Template for environment variables
-  - `.streamlit/config.toml`: Streamlit application settings
+### **Configuration (`config/`)**
+- **`env.example`**: Template for environment variables
+- **`.streamlit/config.toml`**: Streamlit configuration settings
 
-### 🚀 `deploy/` - Deployment
-- **Purpose**: Contains all deployment-related files
-- **Files**:
-  - `Dockerfile`: Docker container configuration
-  - `docker-compose.yml`: Multi-container Docker setup
-  - `deploy.sh` & `deploy.bat`: Deployment scripts for different OS
-  - `Procfile`: Heroku deployment configuration
-  - `app.yaml`: Google App Engine configuration
+### **Documentation (`docs/`)**
+- **`CONTRIBUTING.md`**: Guidelines for contributing to the project
+- **`CODE_OF_CONDUCT.md`**: Community code of conduct
+- **`SECURITY.md`**: Security policy and vulnerability reporting
 
-### 📚 `docs/` - Documentation
-- **Purpose**: Contains all project documentation
-- **Files**:
-  - `CONTRIBUTING.md`: Guidelines for contributors
-  - `DEPLOYMENT.md`: Comprehensive deployment guide
-  - `QUICK_DEPLOY.md`: Quick start deployment guide
-  - `GITHUB_SETUP.md`: GitHub repository setup guide
-  - `CODE_OF_CONDUCT.md`: Community standards
-  - `SECURITY.md`: Security policy and vulnerability reporting
+### **Testing (`testing/`)**
+- **`LOCAL_TESTING.md`**: Comprehensive local testing guide
+- **`MOBILE_TESTING.md`**: Mobile responsiveness testing guide
 
-### 🏠 Root Directory
-- **Purpose**: Contains main project files and entry points
-- **Files**:
-  - `run.py`: Main entry point for running the application
-  - `setup.py`: Python package configuration
-  - `Makefile`: Development and deployment commands
-  - `requirements.txt`: Python package dependencies
-  - `LICENSE`: MIT License
-  - `README.md`: Main project documentation
-  - `.gitignore`: Git ignore rules
+### **Root Files**
+- **`README.md`**: Main project documentation with deployment instructions
+- **`requirements.txt`**: Python package dependencies
+- **`run.py`**: Simple entry point for running the application
+- **`STREAMLIT_CLOUD_DEPLOY.md`**: Step-by-step Streamlit Cloud deployment guide
+- **`LICENSE`**: MIT License for open source distribution
+- **`.gitignore`**: Git ignore rules for common files
 
-## 🚀 Quick Commands
+## 🚀 **Deployment Strategy**
 
-### Development
+### **Primary: Streamlit Cloud (FREE)**
+- **File**: `STREAMLIT_CLOUD_DEPLOY.md`
+- **Target**: [share.streamlit.io](https://share.streamlit.io)
+- **Benefits**: Free, automatic deployments, HTTPS included
+
+### **Local Development**
+- **File**: `run.py` or `python -m streamlit run src/app.py`
+- **Target**: Local development and testing
+
+## 🧪 **Testing Structure**
+
+### **Local Testing**
+- **Guide**: `testing/LOCAL_TESTING.md`
+- **Covers**: UI/UX, functionality, API integration, security
+
+### **Mobile Testing**
+- **Guide**: `testing/MOBILE_TESTING.md`
+- **Covers**: Responsive design, touch interfaces, mobile optimization
+
+## 🔧 **Development Workflow**
+
+### **Running Locally**
 ```bash
-# Run the application
+# Method 1: Using run.py
 python run.py
 
-# Install dependencies
-pip install -r requirements.txt
-
-# Setup environment
-cp config/env.example .env
+# Method 2: Direct Streamlit
+python -m streamlit run src/app.py
 ```
 
-### Deployment
-```bash
-# Docker deployment
-make docker-build
-make docker-run
+### **Testing**
+1. **Local Testing**: Follow `testing/LOCAL_TESTING.md`
+2. **Mobile Testing**: Follow `testing/MOBILE_TESTING.md`
 
-# Docker Compose deployment
-make deploy
+### **Deployment**
+1. **Streamlit Cloud**: Follow `STREAMLIT_CLOUD_DEPLOY.md`
+2. **Code Changes**: Push to GitHub for automatic deployment
 
-# Cloud deployment
-# See docs/DEPLOYMENT.md for detailed instructions
-```
+## 📱 **Mobile Responsiveness**
 
-### Development Tools
-```bash
-# Show all available commands
-make help
+The application is fully mobile responsive with:
+- **Flexible layouts** that adapt to screen sizes
+- **Touch-friendly** buttons and inputs
+- **Optimized data tables** for mobile viewing
+- **Responsive typography** and spacing
 
-# Run tests
-make test
+## 🔒 **Security Features**
 
-# Clean temporary files
-make clean
+- **Rate limiting**: 50 requests per 30 minutes (increased from 10)
+- **API key validation**: Secure Google Places API key handling
+- **Input sanitization**: Protection against malicious inputs
+- **Logo protection**: Prevents right-click, drag, and download
+- **Session management**: Automatic session timeout
 
-# Format code
-make format
-```
+## 🌍 **Internationalization**
 
-## 🔧 File Path Updates
+- **Multi-country support**: 20+ countries with cities
+- **Custom location input**: For locations not in predefined lists
+- **Localized search**: Country-specific fitness facility types
 
-After restructuring, all file paths have been updated:
+## 📊 **Data Export**
 
-### Application Files
-- **Logo**: `assets/gym360_logo.png`
-- **Main App**: `src/app.py`
-- **Config**: `config/.streamlit/config.toml`
+- **CSV download**: Export search results with all details
+- **Formatted filenames**: Include search parameters and date
+- **Complete data**: Contact info, ratings, addresses, websites
 
-### Deployment Files
-- **Docker**: `deploy/Dockerfile`
-- **Docker Compose**: `deploy/docker-compose.yml`
-- **Scripts**: `deploy/deploy.sh`, `deploy/deploy.bat`
+## 🎯 **Key Features**
 
-### Documentation
-- **Contributing**: `docs/CONTRIBUTING.md`
-- **Deployment**: `docs/DEPLOYMENT.md`
-- **Security**: `docs/SECURITY.md`
+- **Smart Search**: Google Places API integration
+- **Web Scraping**: Additional contact information extraction
+- **Mobile First**: Responsive design for all devices
+- **Security Focused**: Multiple layers of protection
+- **User Friendly**: Intuitive interface and clear feedback
+- **Open Source**: MIT licensed for community use
 
-## 📋 Benefits of This Structure
+## 📈 **Performance Optimizations**
 
-### ✅ **Organization**
-- Clear separation of concerns
-- Easy to find specific files
-- Logical grouping of related files
-
-### ✅ **Maintainability**
-- Easy to update and modify
-- Clear file responsibilities
-- Scalable structure
-
-### ✅ **Deployment**
-- Separate deployment configurations
-- Easy to deploy to different platforms
-- Clear deployment scripts
-
-### ✅ **Documentation**
-- Centralized documentation
-- Easy to find specific guides
-- Professional structure
-
-### ✅ **Development**
-- Clear development workflow
-- Easy to add new features
-- Standard Python project structure
-
-## 🔄 Migration Notes
-
-If you're migrating from the old structure:
-
-1. **Update imports**: All file paths have been updated
-2. **Update scripts**: Use new entry points (`run.py`)
-3. **Update documentation**: References point to new locations
-4. **Update deployment**: Use new deployment scripts
-
-## 📞 Support
-
-For questions about the project structure:
-- Check the documentation in `docs/`
-- Review the `README.md` for quick start
-- See `CONTRIBUTING.md` for development guidelines
+- **Efficient API calls**: Optimized Google Places API usage
+- **Caching**: Session-based caching for better performance
+- **Error handling**: Graceful error management and user feedback
+- **Loading states**: Clear progress indicators for long operations
 
 ---
 
-**This structure follows Python and open source best practices for maintainable, scalable projects.**
+**This structure is optimized for easy maintenance, clear organization, and simple deployment to Streamlit Cloud.**

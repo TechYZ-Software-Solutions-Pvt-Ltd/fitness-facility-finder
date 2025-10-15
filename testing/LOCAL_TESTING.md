@@ -1,6 +1,6 @@
 # 🧪 Local Testing Guide
 
-Test your Fitness Facility Finder locally before deploying to Railway.
+Test your Fitness Facility Finder locally before deploying to Streamlit Cloud.
 
 ## 📋 Prerequisites
 
@@ -66,7 +66,7 @@ Once running, your app will be available at:
 - [ ] **Logo cannot be right-clicked** (context menu disabled)
 - [ ] **Logo cannot be dragged** (drag disabled)
 - [ ] **Logo cannot be selected** (selection disabled)
-- [ ] **Rate limiting** works (multiple rapid searches)
+- [ ] **Rate limiting** works (50 requests per 30 minutes)
 - [ ] **Input validation** works (empty fields, invalid inputs)
 
 ## 🔧 Troubleshooting
@@ -172,7 +172,7 @@ Overall Status: ✅ Ready for Deployment / ❌ Needs Fixes
 If all tests pass:
 1. **Commit any fixes**: `git add . && git commit -m "Fix: description"`
 2. **Push to GitHub**: `git push origin main`
-3. **Deploy to Railway**: Follow RAILWAY_DEPLOY.md guide
+3. **Deploy to Streamlit Cloud**: Follow STREAMLIT_CLOUD_DEPLOY.md guide
 
 ## 📞 Support
 

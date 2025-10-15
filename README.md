@@ -187,35 +187,26 @@ We welcome contributions! Please see our [Contributing Guidelines](docs/CONTRIBU
 ```
 fitness-facility-finder/
 ├── src/                  # Source code
-│   ├── app.py           # Main Streamlit application
-│   └── main.py          # App Engine entry point
+│   └── app.py           # Main Streamlit application
 ├── assets/              # Static assets
 │   └── gym360_logo.png  # Application logo
 ├── config/              # Configuration files
 │   ├── env.example      # Environment variables template
 │   └── .streamlit/      # Streamlit configuration
-├── deploy/              # Deployment files
-│   ├── Dockerfile       # Docker configuration
-│   ├── docker-compose.yml # Docker Compose setup
-│   ├── deploy.sh        # Linux/Mac deployment script
-│   ├── deploy.bat       # Windows deployment script
-│   ├── Procfile         # Heroku configuration
-│   └── app.yaml         # Google App Engine config
 ├── docs/                # Documentation
 │   ├── CONTRIBUTING.md  # Contribution guidelines
-│   ├── DEPLOYMENT.md    # Deployment guide
-│   ├── QUICK_DEPLOY.md  # Quick deployment guide
-│   ├── GITHUB_SETUP.md  # GitHub setup guide
 │   ├── CODE_OF_CONDUCT.md # Code of conduct
 │   └── SECURITY.md      # Security policy
+├── testing/             # Testing documentation
+│   ├── LOCAL_TESTING.md # Local testing guide
+│   └── MOBILE_TESTING.md # Mobile testing guide
 ├── run.py               # Main entry point script
-├── setup.py             # Python package setup
-├── Makefile             # Development commands
 ├── requirements.txt     # Python dependencies
 ├── LICENSE              # MIT License
 ├── README.md            # This file
 ├── .gitignore           # Git ignore rules
-└── PROJECT_STRUCTURE.md # Detailed structure guide
+├── PROJECT_STRUCTURE.md # Detailed structure guide
+└── STREAMLIT_CLOUD_DEPLOY.md # Streamlit Cloud deployment guide
 ```
 
 📖 **For detailed structure information, see [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)**
