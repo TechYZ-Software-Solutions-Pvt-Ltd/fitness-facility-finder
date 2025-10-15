@@ -250,6 +250,34 @@ st.markdown("""
         pointer-events: none;
     }
 </style>
+
+<script>
+// Ensure page starts at the top when loading - multiple approaches
+(function() {
+    // Immediate scroll
+    window.scrollTo(0, 0);
+    
+    // Scroll on load
+    window.addEventListener('load', function() {
+        window.scrollTo(0, 0);
+    });
+    
+    // Scroll on DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+        window.scrollTo(0, 0);
+    });
+    
+    // Scroll after a short delay to ensure Streamlit is ready
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 100);
+    
+    // Additional scroll after longer delay
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 500);
+})();
+</script>
 """, unsafe_allow_html=True)
 
 # Mobile responsive logo layout
