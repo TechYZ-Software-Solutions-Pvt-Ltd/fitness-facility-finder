@@ -18,7 +18,7 @@ def main():
     # Run Streamlit
     try:
         subprocess.run([
-            sys.executable, '-m', 'streamlit', 'run', 'src/app.py',
+            sys.executable, '-m', 'streamlit', 'run', 'app.py',
             '--server.port=8501',
             '--server.address=0.0.0.0'
         ])

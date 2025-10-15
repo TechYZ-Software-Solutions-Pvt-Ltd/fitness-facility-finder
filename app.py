@@ -552,20 +552,20 @@ def get_details(place_id, api_key):
         return {}
 
 # --- UI Inputs ---
-api_key = st.text_input('Google Places API Key', type='password', help="Enter your Google Places API key", placeholder="AIza...")
+api_key = st.text_input('Google Places API Key *', type='password', help="Enter your Google Places API key", placeholder="AIza...")
 
 # Mobile responsive form columns
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    country = st.selectbox('Country', list(COUNTRIES.keys()), index=0)
+    country = st.selectbox('Country *', list(COUNTRIES.keys()), index=0)
     
 with col2:
     city_options = COUNTRIES[country] + ['Custom...']
-    city_selection = st.selectbox('City/Town/Area', city_options, index=0)
+    city_selection = st.selectbox('City/Town/Area *', city_options, index=0)
     
     if city_selection == 'Custom...':
-        custom_city = st.text_input('Enter Custom City/Town/Area', placeholder='Enter the name of your city/town/area')
+        custom_city = st.text_input('Enter Custom City/Town/Area *', placeholder='Enter the name of your city/town/area')
         if custom_city and api_key:
             if st.button('Verify Place'):
                 with st.spinner('Verifying place...'):
@@ -588,14 +588,14 @@ if country == 'India':
     col3, col4 = st.columns([1, 1])
     
     with col3:
-        state = st.selectbox('State/Union Territory', list(INDIA_STATES_DISTRICTS.keys()), index=0)
+        state = st.selectbox('State/Union Territory *', list(INDIA_STATES_DISTRICTS.keys()), index=0)
     
     with col4:
         district_options = INDIA_STATES_DISTRICTS[state] + ['Custom...']
-        district_selection = st.selectbox('District/City', district_options, index=0)
+        district_selection = st.selectbox('District/City *', district_options, index=0)
         
         if district_selection == 'Custom...':
-            custom_district = st.text_input('Enter Custom District/City', placeholder='Enter district or city name')
+            custom_district = st.text_input('Enter Custom District/City *', placeholder='Enter district or city name')
             if custom_district and api_key:
                 if st.button('Verify District'):
                     with st.spinner('Verifying district...'):
@@ -611,7 +611,18 @@ if country == 'India':
         else:
             city = district_selection
 
-place_type = st.selectbox('Business Type', FITNESS_TYPES, index=0)
+# Business Type with Custom Option
+business_type_options = FITNESS_TYPES + ['Custom...']
+business_type_selection = st.selectbox('Business Type *', business_type_options, index=0)
+
+if business_type_selection == 'Custom...':
+    custom_business_type = st.text_input('Enter Custom Business Type *', placeholder='e.g., CrossFit Box, MMA Gym, Dance Studio, etc.')
+    if custom_business_type:
+        place_type = custom_business_type
+    else:
+        place_type = None
+else:
+    place_type = business_type_selection
 max_results = st.number_input('Max Results', min_value=1, max_value=60, value=20, step=1)
 
 # --- Search Button with Matching Padding ---
@@ -645,130 +656,149 @@ st.markdown("""
 # On mobile, make the button full width
 col1, col2, col3 = st.columns([1, 1, 1])
 with col3:
-    search_clicked = st.button('⚡ Search Facilities', use_container_width=True)
+    search_clicked = st.button('⚡ Search Facilities', width='stretch')
 
 # --- Results and Status in Separate Column ---
-if search_clicked and api_key and city:
-    is_valid, error_msg = validate_api_key(api_key)
-    if not is_valid:
-        st.error(f"❌ {error_msg}")
+if search_clicked:
+    # Validate API key first
+    if not api_key:
+        st.error("❌ **Google Places API Key is required!** Please enter your API key to continue.")
+        st.markdown("""
+        <script>
+        // Focus on the API key input field
+        setTimeout(function() {
+            const input = document.querySelector('input[type="password"]');
+            if (input) {
+                input.focus();
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 100);
+        </script>
+        """, unsafe_allow_html=True)
+    elif not city:
+        st.error("❌ **Location is required!** Please select or enter a city/town/area.")
+    elif not place_type:
+        st.error("❌ **Business Type is required!** Please select or enter a business type.")
     else:
-        if not check_rate_limit():
-            st.error(f"❌ Rate limit exceeded. Maximum {MAX_REQUESTS_PER_SESSION} requests per {SESSION_TIMEOUT_MINUTES} minutes.")
+        is_valid, error_msg = validate_api_key(api_key)
+        if not is_valid:
+            st.error(f"❌ {error_msg}")
         else:
-            place_type_clean = sanitize_input(place_type)
-            city_clean = sanitize_input(city)
-            country_clean = sanitize_input(country)
-            
-            if not all([place_type_clean, city_clean, country_clean]):
-                st.error("❌ Invalid input parameters. Please check your selections.")
+            if not check_rate_limit():
+                st.error(f"❌ Rate limit exceeded. Maximum {MAX_REQUESTS_PER_SESSION} requests per {SESSION_TIMEOUT_MINUTES} minutes.")
             else:
-                query = f"{place_type_clean} in {city_clean}, {country_clean}"
-                st.info('🔍 Searching securely, please wait...')
+                place_type_clean = sanitize_input(place_type)
+                city_clean = sanitize_input(city)
+                country_clean = sanitize_input(country)
                 
-                # Mobile responsive security status
-                col1, col2, col3 = st.columns([1, 1, 1])
-                with col1:
-                    st.success("🔐 API Key Validated")
-                with col2:
-                    st.info(f"⏱️ Rate Limit: {st.session_state.request_count + 1}/{MAX_REQUESTS_PER_SESSION}")
-                with col3:
-                    st.success("🛡️ Input Sanitized")
-                
-                gyms = get_places(query, api_key, max_results)
-                
-                if not gyms:
-                    st.warning("⚠️ No facilities found or API error occurred.")
+                if not all([place_type_clean, city_clean, country_clean]):
+                    st.error("❌ Invalid input parameters. Please check your selections.")
                 else:
-                    rows = []
-                    progress_bar = st.progress(0)
-                    total_gyms = len(gyms)
+                    query = f"{place_type_clean} in {city_clean}, {country_clean}"
+                    st.info('🔍 Searching securely, please wait...')
                     
-                    for i, gym in enumerate(gyms):
-                        progress_bar.progress((i + 1) / total_gyms)
-                        
-                        details = get_details(gym['place_id'], api_key)
-                        website = details.get('website', '')
-                        email, whatsapp, year, insta = scrape_site_for_contacts(website)
-                        
-                        # Only add if we have a valid facility name
-                        facility_name = details.get('name', '').strip()
-                        if facility_name:  # Only add non-empty facility names
-                            rows.append({
-                                'Facility Name': facility_name,
-                                'Contact Number': details.get('international_phone_number', ''),
-                                'WhatsApp Number': whatsapp,
-                                'email ID': email,
-                                'Established Year': year,
-                                'Location': city_clean,
-                                'Address': details.get('formatted_address', ''),
-                                'Google Rating': details.get('rating', 0) if details.get('rating') else 0,
-                                'Instagram id': insta,
-                                'Website': website
-                            })
+                    # Mobile responsive security status
+                    col1, col2, col3 = st.columns([1, 1, 1])
+                    with col1:
+                        st.success("🔐 API Key Validated")
+                    with col2:
+                        st.info(f"⏱️ Rate Limit: {st.session_state.request_count + 1}/{MAX_REQUESTS_PER_SESSION}")
+                    with col3:
+                        st.success("🛡️ Input Sanitized")
                     
-                    progress_bar.empty()
-                    df = pd.DataFrame(rows)
+                    gyms = get_places(query, api_key, max_results)
                     
-                    # Display results in a column with same width as form elements
-                    if not df.empty:
-                        # Ensure all columns are properly formatted
-                        df['Google Rating'] = pd.to_numeric(df['Google Rating'], errors='coerce').fillna(0)
-                        df['Established Year'] = df['Established Year'].astype(str)
+                    if not gyms:
+                        st.warning("⚠️ No facilities found or API error occurred.")
+                    else:
+                        rows = []
+                        progress_bar = st.progress(0)
+                        total_gyms = len(gyms)
                         
-                        # Mobile responsive dataframe display
-                        st.dataframe(
-                            df,
-                            width='stretch',
-                            hide_index=True,
-                            use_container_width=True,
-                            column_config={
-                                "Facility Name": st.column_config.TextColumn(
-                                    "Facility Name",
-                                    width="medium",
-                                    help="Name of the fitness facility"
-                                ),
-                                "Contact Number": st.column_config.TextColumn(
-                                    "Contact",
-                                    width="small",
-                                    help="Phone number"
-                                ),
-                                "WhatsApp Number": st.column_config.TextColumn(
-                                    "WhatsApp",
-                                    width="small",
-                                    help="WhatsApp number"
-                                ),
-                                "email ID": st.column_config.TextColumn(
-                                    "Email",
-                                    width="small",
-                                    help="Email address"
-                                ),
-                                "Established Year": st.column_config.TextColumn(
-                                    "Year",
-                                    width="small",
-                                    help="Established year"
-                                ),
-                                "Location": st.column_config.TextColumn(
-                                    "Location",
-                                    width="small",
-                                    help="City/Location"
-                                ),
-                                "Address": st.column_config.TextColumn(
-                                    "Address",
-                                    width="large",
-                                    help="Full address"
-                                ),
-                                "Google Rating": st.column_config.NumberColumn(
-                                    "Rating",
-                                    width="small",
-                                    format="%.1f",
-                                    help="Google rating"
-                                ),
-                                "Instagram id": st.column_config.TextColumn(
-                                    "Instagram",
-                                    width="small",
-                                    help="Instagram handle"
-                                ),
+                        for i, gym in enumerate(gyms):
+                            progress_bar.progress((i + 1) / total_gyms)
+                            
+                            details = get_details(gym['place_id'], api_key)
+                            website = details.get('website', '')
+                            email, whatsapp, year, insta = scrape_site_for_contacts(website)
+                            
+                            # Only add if we have a valid facility name
+                            facility_name = details.get('name', '').strip()
+                            if facility_name:  # Only add non-empty facility names
+                                rows.append({
+                                    'Facility Name': facility_name,
+                                    'Contact Number': details.get('international_phone_number', ''),
+                                    'WhatsApp Number': whatsapp,
+                                    'email ID': email,
+                                    'Established Year': year,
+                                    'Location': city_clean,
+                                    'Address': details.get('formatted_address', ''),
+                                    'Google Rating': details.get('rating', 0) if details.get('rating') else 0,
+                                    'Instagram id': insta,
+                                    'Website': website
+                                })
+                        
+                        progress_bar.empty()
+                        df = pd.DataFrame(rows)
+                        
+                        # Display results in a column with same width as form elements
+                        if not df.empty:
+                            # Ensure all columns are properly formatted
+                            df['Google Rating'] = pd.to_numeric(df['Google Rating'], errors='coerce').fillna(0)
+                            df['Established Year'] = df['Established Year'].astype(str)
+                            
+                            # Mobile responsive dataframe display
+                            st.dataframe(
+                                df,
+                                width='stretch',
+                                hide_index=True,
+                                column_config={
+                                    "Facility Name": st.column_config.TextColumn(
+                                        "Facility Name",
+                                        width="medium",
+                                        help="Name of the fitness facility"
+                                    ),
+                                    "Contact Number": st.column_config.TextColumn(
+                                        "Contact",
+                                        width="small",
+                                        help="Phone number"
+                                    ),
+                                    "WhatsApp Number": st.column_config.TextColumn(
+                                        "WhatsApp",
+                                        width="small",
+                                        help="WhatsApp number"
+                                    ),
+                                    "email ID": st.column_config.TextColumn(
+                                        "Email",
+                                        width="small",
+                                        help="Email address"
+                                    ),
+                                    "Established Year": st.column_config.TextColumn(
+                                        "Year",
+                                        width="small",
+                                        help="Established year"
+                                    ),
+                                    "Location": st.column_config.TextColumn(
+                                        "Location",
+                                        width="small",
+                                        help="City/Location"
+                                    ),
+                                    "Address": st.column_config.TextColumn(
+                                        "Address",
+                                        width="large",
+                                        help="Full address"
+                                    ),
+                                    "Google Rating": st.column_config.NumberColumn(
+                                        "Rating",
+                                        width="small",
+                                        format="%.1f",
+                                        help="Google rating"
+                                    ),
+                                    "Instagram id": st.column_config.TextColumn(
+                                        "Instagram",
+                                        width="small",
+                                        help="Instagram handle"
+                                    ),
                                 "Website": st.column_config.LinkColumn(
                                     "Website",
                                     width="small",
@@ -793,40 +823,12 @@ if search_clicked and api_key and city:
                             help="Download your search results securely"
                         )
                         
-                        st.success(f"✅ Search completed securely! {len(df)} facilities found.")
-                        st.info(f"🔒 **Security Summary**: {st.session_state.request_count} API calls made, all requests logged and monitored.")
+                        st.success(f"✅ Search completed! {len(df)} facilities found.")
 
 # Security footer
 st.markdown("---")
-st.markdown("### 🔒 Security Features")
-# Mobile responsive security features - stack on small screens
-col1, col2, col3, col4 = st.columns(4)
-
-with col1:
-    st.markdown("**🔐 API Key Protection**")
-    st.markdown("- Encrypted storage")
-    st.markdown("- Never logged")
-    st.markdown("- Format validation")
-
-with col2:
-    st.markdown("**🛡️ Input Security**")
-    st.markdown("- Input sanitization")
-    st.markdown("- Injection prevention")
-    st.markdown("- Length limits")
-
-with col3:
-    st.markdown("**⏱️ Rate Limiting**")
-    st.markdown("- 10 requests/session")
-    st.markdown("- 30min timeout")
-    st.markdown("- Abuse prevention")
-
-with col4:
-    st.markdown("**📊 Monitoring**")
-    st.markdown("- Secure logging")
-    st.markdown("- Error tracking")
-    st.markdown("- Session management")
-
-st.info('🔐 **Secure Operation**: Enter your API key, select location and business type, then press "Search Facilities". All data is processed securely and never stored.')
+st.markdown("### 🔒 Security & Privacy")
+st.info('🔐 **Secure Operation**: Your API key is protected, data is processed securely, and never stored. Rate limited to 50 requests per 30 minutes.')
 
 # Techyz Software Solutions Footer
 st.markdown("---")

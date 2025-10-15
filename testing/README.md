@@ -24,7 +24,7 @@ This folder contains comprehensive testing guides for the Fitness Facility Finde
 python run.py
 
 # Method 2: Direct Streamlit
-python -m streamlit run src/app.py
+python -m streamlit run app.py
 ```
 
 ### **Access App**
@@ -37,6 +37,9 @@ python -m streamlit run src/app.py
 - [ ] App loads without errors
 - [ ] Logo displays correctly
 - [ ] Form elements work properly
+- [ ] Custom business type feature works
+- [ ] Form validation works (try without API key)
+- [ ] Auto-focus works on required fields
 - [ ] Search functionality works
 - [ ] Results display correctly
 - [ ] Download feature works

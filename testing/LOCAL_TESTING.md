@@ -17,7 +17,7 @@ python run.py
 
 ### Method 2: Direct Streamlit
 ```bash
-streamlit run src/app.py
+streamlit run app.py
 ```
 
 ### Method 3: Using Make (if available)
@@ -44,8 +44,10 @@ Once running, your app will be available at:
 - [ ] **Country dropdown** works (select different countries)
 - [ ] **City dropdown** updates based on country selection
 - [ ] **Custom city input** works (type custom city name)
-- [ ] **Fitness type selection** works
-- [ ] **Radius slider** functions properly
+- [ ] **Fitness type selection** works (80+ predefined options)
+- [ ] **Custom business type** works (select "Custom..." and enter custom type)
+- [ ] **Form validation** works (try searching without API key)
+- [ ] **Auto-focus** works (cursor focuses on required fields)
 - [ ] **Search button** triggers search (with valid API key)
 
 ### 3. **Mobile Responsiveness Testing**
@@ -75,7 +77,7 @@ Once running, your app will be available at:
 1. **Check Python version**: `python --version` (should be 3.8+)
 2. **Install dependencies**: `pip install -r requirements.txt`
 3. **Check port availability**: Port 8501 should be free
-4. **Verify file paths**: Ensure `src/app.py` exists
+4. **Verify file paths**: Ensure `app.py` exists
 
 ### Logo Not Displaying?
 1. **Check file path**: `assets/gym360_logo.png` should exist
@@ -132,7 +134,7 @@ pip install -r requirements.txt
 ### Issue: "Port already in use"
 **Solution**: Kill existing process or use different port
 ```bash
-streamlit run src/app.py --server.port 8502
+streamlit run app.py --server.port 8502
 ```
 
 ### Issue: "API key invalid"

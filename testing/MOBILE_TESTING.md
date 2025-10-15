@@ -42,6 +42,8 @@ This guide helps you test the mobile responsiveness of your Fitness Facility Fin
 - ✅ **Logo**: Responsive sizing
 - ✅ **Headings**: Scaled down appropriately
 - ✅ **Form elements**: Full width, touch-friendly
+- ✅ **Custom business type**: Dropdown and text input work smoothly
+- ✅ **Form validation**: Error messages display properly
 - ✅ **Columns**: Stack vertically
 - ✅ **Buttons**: Full width, 44px minimum height
 - ✅ **Data table**: Horizontal scroll, compact columns

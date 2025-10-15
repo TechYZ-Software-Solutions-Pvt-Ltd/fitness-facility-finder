@@ -19,7 +19,7 @@ Deploy your Fitness Facility Finder to Streamlit Community Cloud for FREE!
 1. **Click "New app"**
 2. **Repository**: `TechYZ-Software-Solutions-Pvt-Ltd/fitness-facility-finder`
 3. **Branch**: `main`
-4. **Main file path**: `src/app.py`
+4. **Main file path**: `app.py`
 5. **App URL**: Choose a custom name (e.g., `fitness-facility-finder`)
 6. **Click "Deploy!"**
 
@@ -63,7 +63,7 @@ Deploy your Fitness Facility Finder to Streamlit Community Cloud for FREE!
 
 ### App Won't Deploy?
 1. **Check repository** is public
-2. **Verify file path** is `src/app.py`
+2. **Verify file path** is `app.py`
 3. **Check requirements.txt** exists
 4. **Review build logs** for errors
 

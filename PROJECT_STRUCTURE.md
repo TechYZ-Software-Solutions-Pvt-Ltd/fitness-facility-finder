@@ -6,8 +6,7 @@ This document explains the organized folder structure of the Fitness Facility Fi
 
 ```
 📦 fitness-facility-finder/
-├── 📁 src/                       # Source Code
-│   └── app.py                   # Main Streamlit application
+├── 📄 app.py                    # Main Streamlit application
 ├── 📁 assets/                   # Static Assets
 │   └── gym360_logo.png         # Application logo
 ├── 📁 config/                   # Configuration Files
@@ -32,13 +31,16 @@ This document explains the organized folder structure of the Fitness Facility Fi
 
 ## 📋 **File Descriptions**
 
-### **Source Code (`src/`)**
+### **Main Application**
 - **`app.py`**: Main Streamlit application with all functionality
   - Mobile responsive design
   - Google Places API integration
   - Web scraping capabilities
+  - Custom business type entry option
+  - Smart form validation with auto-focus
   - Security features and rate limiting
   - CSV export functionality
+  - 80+ predefined fitness facility types
 
 ### **Assets (`assets/`)**
 - **`gym360_logo.png`**: Application logo (secure, non-downloadable)
@@ -72,7 +74,7 @@ This document explains the organized folder structure of the Fitness Facility Fi
 - **Benefits**: Free, automatic deployments, HTTPS included
 
 ### **Local Development**
-- **File**: `run.py` or `python -m streamlit run src/app.py`
+- **File**: `run.py` or `python -m streamlit run app.py`
 - **Target**: Local development and testing
 
 ## 🧪 **Testing Structure**
@@ -93,7 +95,7 @@ This document explains the organized folder structure of the Fitness Facility Fi
 python run.py
 
 # Method 2: Direct Streamlit
-python -m streamlit run src/app.py
+python -m streamlit run app.py
 ```
 
 ### **Testing**

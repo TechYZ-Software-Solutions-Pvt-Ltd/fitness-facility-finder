@@ -10,10 +10,13 @@ A powerful open-source Streamlit application that helps you find fitness facilit
 ## ✨ Features
 
 - **🔍 Smart Search**: Find fitness facilities by location and type
+- **✏️ Custom Business Types**: Enter your own fitness facility type or choose from 80+ predefined options
 - **📊 Detailed Information**: Get contact details, ratings, and more
 - **🌍 Global Coverage**: Search in multiple countries and cities
+- **🏛️ India Support**: Complete state and district coverage for India
 - **📱 Mobile Responsive**: Works perfectly on desktop and mobile devices
 - **🔒 Secure**: Built-in security features and rate limiting
+- **✅ Form Validation**: Smart validation with auto-focus on required fields
 - **📥 Export Data**: Download results as CSV files
 - **☁️ Free Deployment**: Deploy to Streamlit Cloud for free
 - **🚀 One-Click Deploy**: Easy deployment with Streamlit Community Cloud
@@ -29,7 +32,7 @@ A powerful open-source Streamlit application that helps you find fitness facilit
 3. **Sign in with GitHub**
 4. **Click "New app"**
 5. **Select your forked repository**
-6. **Set main file path**: `src/app.py`
+6. **Set main file path**: `app.py`
 7. **Deploy!** 🎉
 
 ### Option 2: Local Development
@@ -49,7 +52,7 @@ cp config/env.example .env
 # Run the application
 python run.py
 # OR
-streamlit run src/app.py
+streamlit run app.py
 ```
 
 ### Option 3: Using Make (Linux/Mac)
@@ -77,12 +80,19 @@ make run        # Run application
 
 ## 📖 Usage
 
-1. **Enter your Google Places API key**
-2. **Select your country and city**
-3. **Choose the type of fitness facility**
+1. **Enter your Google Places API key** (required)
+2. **Select your country and city** (required)
+3. **Choose the type of fitness facility**:
+   - Select from 80+ predefined options (Gym, Yoga Studio, CrossFit, etc.)
+   - Or choose "Custom..." to enter your own business type
 4. **Set maximum results** (1-60)
 5. **Click "Search Facilities"**
 6. **View and download results**
+
+### 🎯 Custom Business Types
+- Select "Custom..." from the Business Type dropdown
+- Enter any fitness facility type (e.g., "CrossFit Box", "MMA Gym", "Dance Studio")
+- The app will search for facilities matching your custom term
 
 ## 🚀 Deployment Options
 
@@ -143,7 +153,7 @@ cp config/env.example .env
 # Run development server
 python run.py
 # OR
-streamlit run src/app.py
+streamlit run app.py
 ```
 
 ### Testing
@@ -186,8 +196,7 @@ We welcome contributions! Please see our [Contributing Guidelines](docs/CONTRIBU
 
 ```
 fitness-facility-finder/
-├── src/                  # Source code
-│   └── app.py           # Main Streamlit application
+├── app.py               # Main Streamlit application
 ├── assets/              # Static assets
 │   └── gym360_logo.png  # Application logo
 ├── config/              # Configuration files
