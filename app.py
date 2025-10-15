@@ -72,29 +72,10 @@ def secure_log_request(operation, success=True, error_msg=""):
 # --- UI Header with Mobile Responsiveness ---
 st.markdown("""
 <style>
-    .centered-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 30px;
-        width: 100%;
-    }
-    .centered-heading {
-        color: #2E86AB;
-        font-family: 'Arial', sans-serif;
-        font-weight: bold;
-        margin: 15px 0 0 0;
-        font-size: 2.5rem;
-        text-align: center;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
     
     /* Mobile Responsive Styles */
     @media (max-width: 768px) {
-        .centered-heading {
-            font-size: 1.8rem;
-            margin: 10px 0;
-        }
         
         /* Make form elements stack vertically on mobile */
         .stSelectbox > div > div {
@@ -142,9 +123,6 @@ st.markdown("""
     }
     
     @media (max-width: 480px) {
-        .centered-heading {
-            font-size: 1.5rem;
-        }
         
         /* Further optimize for very small screens */
         .stMarkdown h1 {
@@ -257,15 +235,15 @@ st.markdown("""
     
     /* Force page to start at top */
     .main .block-container {
-        padding-top: 1rem !important;
+        padding-top: 0.2rem !important;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Main heading without logo
+# Main heading 
 st.markdown("""
-<div style="text-align: center; margin-top: 20px; margin-bottom: 40px;">
-    <h1 style="color: #2E86AB; font-family: 'Arial', sans-serif; font-weight: bold; margin: 0; font-size: 2.5rem;">
+<div style="text-align: center; margin-top: 0px; margin-bottom: 30px;">
+    <h1 style="color: #2E86AB; font-family: 'Shadows Into Light', cursive; font-weight: bold; margin: 0; font-size: 2.875rem;"> 
         JustList
     </h1>
 </div>
