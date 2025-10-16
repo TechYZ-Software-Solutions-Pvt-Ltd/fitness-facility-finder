@@ -519,6 +519,9 @@ with col2:
     city_options = COUNTRIES[country] + ['Custom...']
     city_selection = st.selectbox('City/Town/Area *', city_options, index=0)
     
+    # Initialize city variable
+    city = None
+    
     if city_selection == 'Custom...':
         custom_city = st.text_input('Enter Custom City/Town/Area *', placeholder='Enter the name of your city/town/area')
         if custom_city and api_key:
@@ -569,6 +572,9 @@ if country == 'India':
 # Business Type with Custom Option
 business_type_options = FITNESS_TYPES + ['Custom...']
 business_type_selection = st.selectbox('Business Type *', business_type_options, index=0)
+
+# Initialize place_type variable
+place_type = None
 
 if business_type_selection == 'Custom...':
     custom_business_type = st.text_input('Enter Custom Business Type *', placeholder='e.g., CrossFit Box, MMA Gym, Dance Studio, etc.')
