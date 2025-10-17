@@ -3,7 +3,7 @@ Header component for the application.
 """
 
 import streamlit as st
-from ..config.settings import settings
+from config.settings import settings
 from .settings_modal import render_settings_icon, render_settings_sidebar
 
 

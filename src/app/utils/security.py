@@ -10,7 +10,7 @@ from datetime import datetime
 import logging
 import threading
 
-from ..config.settings import settings
+from config.settings import settings
 
 logger = logging.getLogger(__name__)
 
