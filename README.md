@@ -78,6 +78,21 @@ make run        # Run application
 5. Set up **billing** (required for Places API)
 6. Add the key to your `.env` file
 
+## 📚 Documentation
+
+- **[API Documentation](docs/API_DOCUMENTATION.md)** - Complete API reference
+- **[Project Structure](docs/PROJECT_STRUCTURE.md)** - Detailed project structure
+- **[Component Documentation](docs/COMPONENT_DOCUMENTATION.md)** - UI component details
+- **[Changelog](docs/CHANGELOG.md)** - Version history and changes
+- **[Architecture Summary](MODULAR_ARCHITECTURE_SUMMARY.md)** - Architecture overview
+
+### 🎯 **Core Principles & Guidelines**
+- **[Core Principles](CORE_PRINCIPLES.md)** - Fundamental project principles
+- **[Development Guidelines](DEVELOPMENT_GUIDELINES.md)** - Development best practices
+- **[Quick Reference](QUICK_REFERENCE.md)** - Essential commands and checklists
+
+*All documentation is automatically generated and updated with code changes.*
+
 ## 📖 Usage
 
 1. **Enter your Google Places API key** (required)
@@ -152,9 +167,34 @@ cp config/env.example .env
 
 # Run development server
 python run.py
-# OR
-streamlit run app.py
 ```
+
+### 📝 Automated Documentation
+
+This project includes an automated documentation system that keeps all documentation up to date with code changes.
+
+**Quick Documentation Update:**
+```bash
+# Update all documentation
+python update_docs.py
+
+# Or use the full management system
+python scripts/manage_docs.py generate
+```
+
+**Available Documentation Commands:**
+```bash
+python scripts/manage_docs.py generate  # Generate all docs
+python scripts/manage_docs.py validate  # Validate docs exist
+python scripts/manage_docs.py status    # Show doc status
+python scripts/manage_docs.py clean     # Clean generated docs
+python scripts/manage_docs.py setup     # Setup auto-updates
+```
+
+**Automatic Updates:**
+- Documentation is automatically updated when you make code changes
+- Git hooks ensure docs stay in sync with code
+- File watcher can monitor changes in real-time
 
 ### Testing
 ```bash
@@ -254,6 +294,18 @@ fitness-facility-finder/
 - **Pandas** for data manipulation
 - **Docker** for containerization
 - **All contributors** who help improve this project
+
+
+
+## 📚 Documentation
+
+- **[API Documentation](docs/API_DOCUMENTATION.md)** - Complete API reference
+- **[Project Structure](docs/PROJECT_STRUCTURE.md)** - Detailed project structure
+- **[Component Documentation](docs/COMPONENT_DOCUMENTATION.md)** - UI component details
+- **[Changelog](docs/CHANGELOG.md)** - Version history and changes
+- **[Architecture Summary](MODULAR_ARCHITECTURE_SUMMARY.md)** - Architecture overview
+
+*All documentation is automatically generated and updated with code changes.*
 
 ## 📄 License
 
