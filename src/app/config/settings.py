@@ -1,5 +1,5 @@
 """
-Configuration management for Fitness Facility Finder.
+Configuration management for Facility Finder.
 All settings are centralized here for easy management.
 """
 
@@ -31,7 +31,7 @@ class APIConfig:
 class UIConfig:
     """UI-related configuration."""
     app_title: str = "JustList"
-    app_description: str = "Find fitness facilities near you"
+    app_description: str = "Find facilities near you"
     default_country: str = "Bahrain"
     default_city: str = "Manama"
 

@@ -1,16 +1,16 @@
-# 🏋️‍♂️ Fitness Facility Finder
+# JustList
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-red.svg)](https://streamlit.io/)
 [![Streamlit Cloud](https://img.shields.io/badge/Streamlit%20Cloud-Ready-FF4B4B.svg)](https://share.streamlit.io/)
 
-A powerful open-source Streamlit application that helps you find fitness facilities (gyms, yoga studios, fitness centers) in your area using Google Places API and web scraping technology.
+A powerful open-source Streamlit application that helps you find any type of facilities in your area using Google Places API and web scraping technology.
 
 ## ✨ Features
 
-- **🔍 Smart Search**: Find fitness facilities by location and type
-- **✏️ Custom Business Types**: Enter your own fitness facility type or choose from 80+ predefined options
+- **🔍 Smart Search**: Find facilities by location and type
+- **✏️ Custom Business Types**: Enter your own facility type or choose from 80+ predefined options
 - **📊 Detailed Information**: Get contact details, ratings, and more
 - **🌍 Global Coverage**: Search in multiple countries and cities
 - **🏛️ India Support**: Complete state and district coverage for India
@@ -32,15 +32,15 @@ A powerful open-source Streamlit application that helps you find fitness facilit
 3. **Sign in with GitHub**
 4. **Click "New app"**
 5. **Select your forked repository**
-6. **Set main file path**: `app.py`
+6. **Set main file path**: `src/app/main.py`
 7. **Deploy!** 🎉
 
 ### Option 2: Local Development
 
 ```bash
 # Clone and setup
-git clone https://github.com/yourusername/fitness-facility-finder.git
-cd fitness-facility-finder
+git clone https://github.com/yourusername/facility-finder.git
+cd facility-finder
 
 # Install dependencies
 pip install -r requirements.txt
@@ -50,9 +50,7 @@ cp config/env.example .env
 # Edit .env with your Google Places API key
 
 # Run the application
-python run.py
-# OR
-streamlit run app.py
+streamlit run src/app/main.py
 ```
 
 ### Option 3: Using Make (Linux/Mac)
@@ -97,8 +95,8 @@ make run        # Run application
 
 1. **Enter your Google Places API key** (required)
 2. **Select your country and city** (required)
-3. **Choose the type of fitness facility**:
-   - Select from 80+ predefined options (Gym, Yoga Studio, CrossFit, etc.)
+3. **Choose the type of facility**:
+   - Select from 80+ predefined options (Restaurant, Gym, Hospital, etc.)
    - Or choose "Custom..." to enter your own business type
 4. **Set maximum results** (1-60)
 5. **Click "Search Facilities"**
@@ -106,7 +104,7 @@ make run        # Run application
 
 ### 🎯 Custom Business Types
 - Select "Custom..." from the Business Type dropdown
-- Enter any fitness facility type (e.g., "CrossFit Box", "MMA Gym", "Dance Studio")
+- Enter any facility type (e.g., "Coffee Shop", "Medical Clinic", "Auto Repair")
 - The app will search for facilities matching your custom term
 
 ## 🚀 Deployment Options
@@ -151,8 +149,8 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
 ### Setup
 ```bash
 # Fork and clone
-git clone https://github.com/YOUR_USERNAME/fitness-facility-finder.git
-cd fitness-facility-finder
+git clone https://github.com/YOUR_USERNAME/facility-finder.git
+cd facility-finder
 
 # Create virtual environment
 python -m venv venv
@@ -166,7 +164,7 @@ cp config/env.example .env
 # Edit .env with your API key
 
 # Run development server
-python run.py
+streamlit run src/app/main.py
 ```
 
 ### 📝 Automated Documentation
@@ -235,27 +233,24 @@ We welcome contributions! Please see our [Contributing Guidelines](docs/CONTRIBU
 ## 📊 Project Structure
 
 ```
-fitness-facility-finder/
-├── app.py               # Main Streamlit application
-├── assets/              # Static assets
-│   └── gym360_logo.png  # Application logo
+facility-finder/
 ├── config/              # Configuration files
-│   ├── env.example      # Environment variables template
-│   └── .streamlit/      # Streamlit configuration
+│   └── env.example      # Environment variables template
 ├── docs/                # Documentation
-│   ├── CONTRIBUTING.md  # Contribution guidelines
-│   ├── CODE_OF_CONDUCT.md # Code of conduct
-│   └── SECURITY.md      # Security policy
-├── testing/             # Testing documentation
-│   ├── LOCAL_TESTING.md # Local testing guide
-│   └── MOBILE_TESTING.md # Mobile testing guide
-├── run.py               # Main entry point script
+│   ├── API_DOCUMENTATION.md # Complete API reference
+│   ├── GOOGLE_PLACES_API_SETUP_GUIDE.txt # API setup guide
+│   └── PROJECT_STRUCTURE.md # Detailed structure guide
+├── src/                 # Source code
+│   └── app/             # Main application
+│       ├── main.py      # Main Streamlit application entry point
+│       ├── components/  # UI components
+│       ├── config/      # Application configuration
+│       ├── models/      # Data models
+│       ├── services/    # Business logic services
+│       └── utils/       # Utility functions
 ├── requirements.txt     # Python dependencies
 ├── LICENSE              # MIT License
-├── README.md            # This file
-├── .gitignore           # Git ignore rules
-├── PROJECT_STRUCTURE.md # Detailed structure guide
-└── STREAMLIT_CLOUD_DEPLOY.md # Streamlit Cloud deployment guide
+└── README.md            # This file
 ```
 
 📖 **For detailed structure information, see [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)**
@@ -281,10 +276,10 @@ fitness-facility-finder/
 
 ## 🆘 Support
 
-- **🐛 Bug Reports**: [GitHub Issues](https://github.com/yourusername/fitness-facility-finder/issues)
-- **💬 Discussions**: [GitHub Discussions](https://github.com/yourusername/fitness-facility-finder/discussions)
+- **🐛 Bug Reports**: [GitHub Issues](https://github.com/yourusername/facility-finder/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/yourusername/facility-finder/discussions)
 - **📧 Email**: info@techyz.net
-- **📖 Documentation**: [Wiki](https://github.com/yourusername/fitness-facility-finder/wiki)
+- **📖 Documentation**: [Wiki](https://github.com/yourusername/facility-finder/wiki)
 
 ## 🙏 Acknowledgments
 
@@ -313,7 +308,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ## 🌟 Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/fitness-facility-finder&type=Date)](https://star-history.com/#yourusername/fitness-facility-finder&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/facility-finder&type=Date)](https://star-history.com/#yourusername/facility-finder&Date)
 
 ---
 
@@ -321,8 +316,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **🚀 Powered by [Techyz Software Solutions Private Limited](https://techyz.com)**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/fitness-facility-finder?style=social)](https://github.com/yourusername/fitness-facility-finder)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/fitness-facility-finder?style=social)](https://github.com/yourusername/fitness-facility-finder)
-[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/fitness-facility-finder?style=social)](https://github.com/yourusername/fitness-facility-finder)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/facility-finder?style=social)](https://github.com/yourusername/facility-finder)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/facility-finder?style=social)](https://github.com/yourusername/facility-finder)
+[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/facility-finder?style=social)](https://github.com/yourusername/facility-finder)
 
 </div>

@@ -3,35 +3,30 @@
 *Auto-generated on 2025-10-16 19:56:30*
 
 ## Overview
-This document shows the current project structure of the Fitness Facility Finder application.
+This document shows the current project structure of the Facility Finder application.
 
 ## Directory Structure
 
 ```
-Facilty Search Demo/
-├── run.py                          # Main entry point
+Facility Search Production/
 ├── requirements.txt                # Python dependencies
 ├── README.md                       # Main documentation
 ├── LICENSE                         # MIT License
-├── MODULAR_ARCHITECTURE_SUMMARY.md # Architecture documentation
 ├── config/
 │   └── env.example                 # Environment variables template
 ├── docs/                           # Documentation
 │   ├── API_DOCUMENTATION.md        # Auto-generated API docs
 │   ├── PROJECT_STRUCTURE.md        # This file
-│   ├── COMPONENT_DOCUMENTATION.md  # Component documentation
-│   ├── CHANGELOG.md                # Change log
-│   ├── CODE_OF_CONDUCT.md
-│   ├── CONTRIBUTING.md
-│   └── SECURITY.md
+│   └── GOOGLE_PLACES_API_SETUP_GUIDE.txt # API setup guide
 ├── src/                            # Source code
 │   └── app/                        # Main application
 │       ├── main.py                 # Streamlit app entry point
 │       ├── components/             # UI components
 │       │   ├── __init__.py
 │       │   ├── header.py           # Header component
-│       │   ├── search_form.py      # Search form component
+│       │   ├── unified_search_form.py # Unified search form component
 │       │   ├── results_display.py  # Results display component
+│       │   ├── settings_modal.py   # Settings modal component
 │       │   └── footer.py           # Footer component
 │       ├── services/               # Business logic
 │       │   ├── __init__.py
@@ -43,27 +38,23 @@ Facilty Search Demo/
 │       ├── utils/                  # Utilities
 │       │   ├── __init__.py
 │       │   ├── security.py         # Security utilities
-│       │   ├── web_scraper.py      # Web scraping utilities
-│       │   └── doc_generator.py    # Documentation generator
+│       │   └── web_scraper.py      # Web scraping utilities
 │       └── config/                 # Configuration
 │           ├── __init__.py
 │           └── settings.py         # Application settings
-└── tests/                          # Test suite
-    ├── __init__.py
-    └── test_basic.py               # Basic functionality tests
 ```
 
 ## File Descriptions
 
 ### Core Application Files
-- **`run.py`**: Main entry point that starts the Streamlit application
-- **`src/app/main.py`**: Streamlit application entry point with UI logic
+- **`src/app/main.py`**: Main Streamlit application entry point with UI logic
 - **`requirements.txt`**: Python package dependencies
 
 ### Components (`src/app/components/`)
 - **`header.py`**: Application header with styling and mobile responsiveness
-- **`search_form.py`**: Search form with location and business type selection
+- **`unified_search_form.py`**: Unified search form with hierarchical location and business type selection
 - **`results_display.py`**: Results table and download functionality
+- **`settings_modal.py`**: Settings modal with field selection and API setup guide
 - **`footer.py`**: Footer with security info and branding
 
 ### Services (`src/app/services/`)
@@ -71,7 +62,7 @@ Facilty Search Demo/
 
 ### Models (`src/app/models/`)
 - **`facility.py`**: Data models for facilities, search queries, and results
-- **`data.py`**: Static data constants (countries, cities, fitness types)
+- **`data.py`**: Static data constants (countries, cities, facility types)
 
 ### Utilities (`src/app/utils/`)
 - **`security.py`**: Security utilities (validation, sanitization, rate limiting)

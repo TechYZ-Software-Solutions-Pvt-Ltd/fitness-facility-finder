@@ -1,5 +1,5 @@
 """
-Main Streamlit application for Fitness Facility Finder.
+Main Streamlit application for Facility Finder.
 This is the entry point for the modular application.
 """
 

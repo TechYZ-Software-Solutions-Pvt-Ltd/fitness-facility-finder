@@ -3,7 +3,7 @@
 *Auto-generated on 2025-10-16 19:56:30*
 
 ## Overview
-This document provides comprehensive API documentation for the Fitness Facility Finder application.
+This document provides comprehensive API documentation for the Facility Finder application.
 
 ## Core Models
 
@@ -117,7 +117,7 @@ Centralized configuration management.
 ### Countries and Cities
 - `COUNTRIES`: Dictionary of countries and their cities
 - `INDIA_STATES_DISTRICTS`: Dictionary of Indian states and districts
-- `FITNESS_TYPES`: List of fitness facility types
+- `FACILITY_TYPES`: List of facility types
 
 ## Error Handling
 

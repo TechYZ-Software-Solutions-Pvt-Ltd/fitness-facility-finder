@@ -1,5 +1,5 @@
 """
-Streamlit Cloud Entry Point for Fitness Facility Finder.
+Streamlit Cloud Entry Point for Facility Finder.
 This file serves as the main entry point for Streamlit Cloud deployment.
 """
 
@@ -54,7 +54,7 @@ def main():
                 # Force re-render to update button state
                 st.rerun()
                 _handle_search(api_key, country, state, city, place_type, max_results)
-        except Exception as e:
+    except Exception as e:
             logger.error(f"Error in search: {e}")
             st.error("❌ An error occurred in the search form. Please try refreshing the page.")
         
@@ -78,7 +78,7 @@ def _handle_search(api_key: str, country: str, state: str, city: str, place_type
         # Validate inputs
         is_valid, error_msg = validate_search_inputs(place_type, city, country, max_results)
         
-        if not is_valid:
+    if not is_valid:
             st.error(f"❌ {error_msg}")
             return
         
@@ -105,7 +105,7 @@ def _handle_search(api_key: str, country: str, state: str, city: str, place_type
             
             # Perform search
             _perform_search(search_query, api_key)
-            
+        
     except Exception as e:
         logger.error(f"Error in unified search handler: {e}")
         st.error("❌ An error occurred during the search. Please try again.")
@@ -148,7 +148,7 @@ def _perform_search(search_query: SearchQuery, api_key: str):
             
             # Clear loading indicators
             time.sleep(0.5)
-            progress_bar.empty()
+                        progress_bar.empty()
             status_text.empty()
             
             # Clear loading state
