@@ -8,11 +8,11 @@ import logging
 import streamlit as st
 from typing import List, Dict, Any, Optional, Tuple
 
-from config.settings import settings
-from models.facility import Facility, SearchQuery, SearchResult, ContactInfo
-from utils.security import check_rate_limit, increment_request_count, secure_log_request
-from utils.web_scraper import scrape_website_for_contacts
-from components.settings_modal import get_fields_string
+from ..config.settings import settings
+from ..models.facility import Facility, SearchQuery, SearchResult, ContactInfo
+from ..utils.security import check_rate_limit, increment_request_count, secure_log_request
+from ..utils.web_scraper import scrape_website_for_contacts
+from ..components.settings_modal import get_fields_string
 
 logger = logging.getLogger(__name__)
 

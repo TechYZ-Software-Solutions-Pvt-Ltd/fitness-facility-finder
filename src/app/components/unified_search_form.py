@@ -6,8 +6,8 @@ Country -> State/Province -> City/Town structure for all countries.
 import streamlit as st
 from typing import Tuple, Optional
 
-from models.data import UNIFIED_LOCATIONS, BUSINESS_CATEGORIES
-from config.settings import settings
+from ..models.data import UNIFIED_LOCATIONS, BUSINESS_CATEGORIES
+from ..config.settings import settings
 
 
 def render_unified_search_form() -> Tuple[str, str, str, str, int]:

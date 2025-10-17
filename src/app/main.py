@@ -7,13 +7,13 @@ import streamlit as st
 import time
 import logging
 
-from components.header import render_header
-from components.unified_search_form import render_unified_search_form, render_search_button, get_location_display_name
-from components.results_display import render_search_results, render_error_messages
-from components.footer import render_footer
-from services.places_service import PlacesService
-from models.facility import SearchQuery
-from utils.security import (
+from .components.header import render_header
+from .components.unified_search_form import render_unified_search_form, render_search_button, get_location_display_name
+from .components.results_display import render_search_results, render_error_messages
+from .components.footer import render_footer
+from .services.places_service import PlacesService
+from .models.facility import SearchQuery
+from .utils.security import (
     validate_api_key, 
     check_rate_limit, 
     validate_search_inputs,

@@ -8,7 +8,7 @@ import re
 from typing import Tuple
 import logging
 
-from models.facility import ContactInfo
+from ..models.facility import ContactInfo
 
 logger = logging.getLogger(__name__)
 

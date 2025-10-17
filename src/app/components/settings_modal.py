@@ -5,7 +5,7 @@ Uses Streamlit's native components for better integration.
 
 import streamlit as st
 from typing import List
-from config.settings import settings
+from ..config.settings import settings
 
 
 def render_settings_icon():

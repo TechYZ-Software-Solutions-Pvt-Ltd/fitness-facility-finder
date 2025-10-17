@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import datetime
 import re
 
-from models.facility import SearchResult
+from ..models.facility import SearchResult
 
 
 def render_search_results(result: SearchResult):
