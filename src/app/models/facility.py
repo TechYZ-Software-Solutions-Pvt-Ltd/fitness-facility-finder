@@ -35,6 +35,16 @@ class Facility:
     plus_code: str = ""
     geometry: Dict[str, Any] = None
     
+    # Additional scraped fields from websites
+    facebook: str = ""
+    twitter: str = ""
+    linkedin: str = ""
+    youtube: str = ""
+    phone: str = ""
+    hours: str = ""
+    description: str = ""
+    founded: str = ""
+    
     def __post_init__(self):
         """Initialize default values for mutable fields."""
         if self.types is None:
@@ -84,6 +94,24 @@ class Facility:
             lng = self.geometry['location'].get('lng', '')
             if lat and lng:
                 result['Coordinates'] = f"{lat}, {lng}"
+        
+        # Add scraped fields if they have values
+        if self.facebook:
+            result['Facebook'] = self.facebook
+        if self.twitter:
+            result['Twitter/X'] = self.twitter
+        if self.linkedin:
+            result['LinkedIn'] = self.linkedin
+        if self.youtube:
+            result['YouTube'] = self.youtube
+        if self.phone:
+            result['Additional Phone'] = self.phone
+        if self.hours:
+            result['Business Hours'] = self.hours
+        if self.description:
+            result['Description'] = self.description
+        if self.founded:
+            result['Founded'] = self.founded
         
         return result
     

@@ -19,3 +19,47 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+LEGAL COMPLIANCE NOTICE
+=======================
+
+This software operates under strict legal compliance and ethical data practices:
+
+1. PUBLIC DATA ONLY: This application exclusively uses publicly available data
+   from official APIs and publicly accessible websites.
+
+2. RESPECTFUL SCRAPING: Any web scraping activities strictly adhere to:
+   - robots.txt files and website terms of service
+   - Reasonable request rates to avoid server overload
+   - No access to private, protected, or restricted content
+   - Proper attribution of data sources
+
+3. OFFICIAL APIs: All data collection uses official, licensed APIs including:
+   - Google Places API (with proper API key and usage limits)
+   - Foursquare Places API (with proper API key and usage limits)
+   - Yelp Fusion API (with proper API key and usage limits)
+   - OpenStreetMap Overpass API (open source, free to use)
+   - Other official business directory APIs
+
+4. NO PRIVATE DATA: The application does not collect, store, or process:
+   - Personal information without consent
+   - Private business data
+   - Proprietary or copyrighted content
+   - Data behind authentication walls
+
+5. DATA ATTRIBUTION: All data sources are properly attributed and credited
+   according to their respective terms of service and licensing requirements.
+
+6. RATE LIMITING: The application implements appropriate rate limiting to
+   respect API quotas and server resources.
+
+7. TERMS OF SERVICE: Users must comply with all applicable terms of service
+   of the data sources used by this application.
+
+8. LEGAL DISCLAIMER: Users are responsible for ensuring their use of this
+   software complies with all applicable laws and regulations in their
+   jurisdiction.
+
+By using this software, you agree to operate within these legal and ethical
+boundaries and take full responsibility for compliance with all applicable
+laws and regulations.

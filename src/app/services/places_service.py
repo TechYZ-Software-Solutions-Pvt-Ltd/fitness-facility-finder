@@ -5,14 +5,12 @@ Google Places API service for searching and retrieving facility information.
 import requests
 import time
 import logging
-import streamlit as st
 from typing import List, Dict, Any, Optional, Tuple
 
 from config.settings import settings
 from models.facility import Facility, SearchQuery, SearchResult, ContactInfo
 from utils.security import check_rate_limit, increment_request_count, secure_log_request
 from utils.web_scraper import scrape_website_for_contacts
-from components.settings_modal import get_fields_string
 
 logger = logging.getLogger(__name__)
 
@@ -54,16 +52,7 @@ class PlacesService:
                 error_msg += f"Query: '{query.to_google_query()}'. "
                 error_msg += "This could be due to: 1) No facilities in the area, 2) API quota exceeded, 3) Invalid location, or 4) API key issues."
                 
-                # Add debug information
-                with st.expander("🔧 Debug Information", expanded=False):
-                    st.write(f"**Search Query:** `{query.to_google_query()}`")
-                    st.write(f"**API URL:** `{self.base_url}textsearch/json`")
-                    st.write(f"**API Key:** `{self.api_key[:10]}...` (first 10 characters)")
-                    st.write("**Troubleshooting Tips:**")
-                    st.write("1. Try a more common location like 'New York, USA' or 'London, UK'")
-                    st.write("2. Check if your API key has Places API enabled")
-                    st.write("3. Verify you have sufficient API quota")
-                    st.write("4. Try different business types like 'Fitness Centre' or 'Health Club'")
+                # Debug UI removed to keep backend lean and headless
                 
                 return SearchResult(
                     facilities=[],
@@ -74,8 +63,11 @@ class PlacesService:
                     error_message=error_msg
                 )
             
-            # Process places and get detailed information
-            facilities = self._process_places(places, query.city)
+            # Build fast results from text search only
+            facilities = self._process_places_basic(places, query.city, query.max_results)
+
+            # Enrich with details for selected results within time budget
+            facilities = self._enrich_facilities_with_details(facilities)
             
             secure_log_request("search_places", success=True)
             
@@ -176,7 +168,7 @@ class PlacesService:
                 url, 
                 params=params, 
                 headers=headers, 
-                timeout=settings.security.request_timeout_seconds
+                timeout=min(8, settings.security.request_timeout_seconds)
             )
             response.raise_for_status()
             
@@ -196,30 +188,7 @@ class PlacesService:
             places = data.get('results', [])
             all_places.extend(places)
             
-            # Handle pagination
-            while 'next_page_token' in data and len(all_places) < max_results:
-                if not check_rate_limit():
-                    break
-                
-                time.sleep(2)  # Required delay for next_page_token
-                params['pagetoken'] = data['next_page_token']
-                
-                response = requests.get(
-                    url, 
-                    params=params, 
-                    headers=headers, 
-                    timeout=settings.security.request_timeout_seconds
-                )
-                response.raise_for_status()
-                
-                data = response.json()
-                increment_request_count()
-                
-                if data.get('status') != 'OK':
-                    break
-                
-                places = data.get('results', [])
-                all_places.extend(places)
+            # Skip pagination to keep responses fast; first page only
             
             return all_places[:max_results]
             
@@ -234,10 +203,18 @@ class PlacesService:
             return []
     
     def _process_places(self, places: List[Dict[str, Any]], location: str) -> List[Facility]:
-        """Process raw place data and enrich with detailed information."""
-        facilities = []
+        """Process raw place data and enrich with detailed information under a time budget."""
+        facilities: List[Facility] = []
+        start_time = time.time()
+        time_budget_seconds = 20
         
-        for place in places:
+        max_details = 6
+        for idx, place in enumerate(places):
+            if idx >= max_details:
+                break
+            # stop if nearing time budget
+            if time.time() - start_time > time_budget_seconds:
+                break
             try:
                 # Get detailed information
                 details = self._get_place_details(place['place_id'])
@@ -248,13 +225,30 @@ class PlacesService:
                 # Create facility from details
                 facility = Facility.from_google_place(details, location)
                 
-                # Scrape website for additional contact info
-                if facility.website:
-                    contact_info = scrape_website_for_contacts(facility.website)
-                    facility.email = contact_info.email
-                    facility.whatsapp_number = contact_info.whatsapp
-                    facility.instagram_id = contact_info.instagram
-                    facility.established_year = contact_info.established_year
+                # Enable comprehensive data enrichment
+                try:
+                    from services.enrichment_service import enrichment_service
+                    enrichment_result = enrichment_service.enrich_facility(facility)
+                    facility = enrichment_result.facility
+                    logger.info(f"Enriched facility {facility.name} using sources: {enrichment_result.sources_used}")
+                except Exception as e:
+                    logger.warning(f"Failed to enrich facility {facility.name}: {e}")
+                    # Fallback to basic web scraping
+                    if facility.website:
+                        try:
+                            from utils.web_scraper import scrape_website_for_contacts
+                            scraped_data = scrape_website_for_contacts(facility.website)
+                            
+                            if scraped_data.email:
+                                facility.email = scraped_data.email
+                            if scraped_data.whatsapp:
+                                facility.whatsapp_number = scraped_data.whatsapp
+                            if scraped_data.instagram:
+                                facility.instagram_id = scraped_data.instagram
+                            if scraped_data.established_year:
+                                facility.established_year = scraped_data.established_year
+                        except Exception as scrape_error:
+                            logger.warning(f"Failed to scrape website {facility.website}: {scrape_error}")
                 
                 # Only add facilities with valid names
                 if facility.name.strip():
@@ -268,6 +262,92 @@ class PlacesService:
                 continue
         
         return facilities
+
+    def _process_places_basic(self, places: List[Dict[str, Any]], location: str, limit: int) -> List[Facility]:
+        """Build basic facility info from text search results only (no details requests)."""
+        facilities: List[Facility] = []
+        for place in places[: max(0, limit)]:
+            try:
+                name = place.get('name', '')
+                if not name:
+                    continue
+                facility = Facility(
+                    name=name,
+                    address=place.get('formatted_address') or place.get('vicinity', ''),
+                    google_rating=place.get('rating', 0.0) or 0.0,
+                    website='',
+                    place_id=place.get('place_id', ''),
+                    location=location,
+                    user_ratings_total=place.get('user_ratings_total', 0),
+                    business_status=place.get('business_status', ''),
+                    types=place.get('types', []) or [],
+                    geometry=place.get('geometry', {}) or {}
+                )
+                facilities.append(facility)
+            except Exception:
+                continue
+        return facilities
+
+    def _enrich_facilities_with_details(self, facilities: List[Facility]) -> List[Facility]:
+        """Fetch details for facilities within a strict time budget to populate selected fields (phone, website, etc)."""
+        start_time = time.time()
+        time_budget_seconds = 20
+        per_request_timeout_seconds = 6
+        enriched: List[Facility] = []
+
+        for idx, f in enumerate(facilities):
+            if time.time() - start_time > time_budget_seconds:
+                # Out of budget; return what we have (mix of enriched/unenriched)
+                enriched.extend(facilities[idx:])
+                break
+            if not f.place_id:
+                enriched.append(f)
+                continue
+
+            # Reuse _get_place_details (already has timeout caps)
+            details = self._get_place_details(f.place_id)
+            if not details:
+                enriched.append(f)
+                continue
+
+            # Merge details into existing record
+            try:
+                f.formatted_address = details.get('formatted_address', f.formatted_address)
+                f.international_phone_number = details.get('international_phone_number', f.international_phone_number)
+                f.formatted_phone_number = details.get('formatted_phone_number', f.formatted_phone_number)
+                f.website = details.get('website', f.website)
+                f.google_rating = details.get('rating', f.google_rating) or f.google_rating
+                f.user_ratings_total = details.get('user_ratings_total', f.user_ratings_total)
+                f.business_status = details.get('business_status', f.business_status)
+                f.types = details.get('types', f.types) or f.types
+                f.geometry = details.get('geometry', f.geometry) or f.geometry
+                
+                # Enable website scraping for additional data
+                if f.website:
+                    try:
+                        from utils.web_scraper import scrape_website_for_contacts
+                        scraped_data = scrape_website_for_contacts(f.website)
+                        
+                        # Merge scraped data into facility
+                        if scraped_data.email:
+                            f.email = scraped_data.email
+                        if scraped_data.whatsapp:
+                            f.whatsapp_number = scraped_data.whatsapp
+                        if scraped_data.instagram:
+                            f.instagram_id = scraped_data.instagram
+                        if scraped_data.established_year:
+                            f.established_year = scraped_data.established_year
+                            
+                    except Exception as e:
+                        logger.warning(f"Failed to scrape website {f.website}: {e}")
+                        # Continue without scraped data
+                        
+            except Exception:
+                pass
+
+            enriched.append(f)
+
+        return enriched
     
     def _get_place_details(self, place_id: str) -> Optional[Dict[str, Any]]:
         """Get detailed information for a specific place."""
@@ -275,9 +355,15 @@ class PlacesService:
             return None
         
         url = f"{self.base_url}details/json"
+        # Request only essential fields to reduce latency
+        fields = (
+            "place_id,name,formatted_address,international_phone_number,"
+            "formatted_phone_number,website,rating,user_ratings_total,"
+            "business_status,types,geometry,url"
+        )
         params = {
             'place_id': place_id,
-            'fields': get_fields_string(),
+            'fields': fields,
             'key': self.api_key
         }
         headers = {
@@ -290,7 +376,7 @@ class PlacesService:
                 url, 
                 params=params, 
                 headers=headers, 
-                timeout=settings.security.request_timeout_seconds
+                timeout=min(6, settings.security.request_timeout_seconds)
             )
             response.raise_for_status()
             
