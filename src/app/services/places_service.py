@@ -7,7 +7,11 @@ import time
 import logging
 from typing import List, Dict, Any, Optional, Tuple
 
-from config.settings import settings
+# Configuration constants (replacing deleted config.settings)
+GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place"
+USER_AGENT = "Fitness-Facility-Finder/2.0"
+MAX_RESULTS_LIMIT = 60
+DEFAULT_MAX_RESULTS = 20
 from models.facility import Facility, SearchQuery, SearchResult, ContactInfo
 from utils.security import check_rate_limit, increment_request_count, secure_log_request
 from utils.web_scraper import scrape_website_for_contacts
@@ -20,7 +24,7 @@ class PlacesService:
     
     def __init__(self, api_key: str):
         self.api_key = api_key
-        self.base_url = settings.get_google_places_url("")
+        self.base_url = GOOGLE_PLACES_BASE_URL
     
     def search_places(self, query: SearchQuery) -> SearchResult:
         """
@@ -39,7 +43,7 @@ class PlacesService:
                 search_query=query,
                 timestamp=time.time(),
                 success=False,
-                error_message=f"Rate limit exceeded. Maximum {settings.security.max_requests_per_session} requests per {settings.security.session_timeout_minutes} minutes."
+                error_message=f"Rate limit exceeded. Maximum 50 requests per 30 minutes."
             )
         
         try:
@@ -128,7 +132,7 @@ class PlacesService:
             Tuple of (is_valid, message)
         """
         if not check_rate_limit():
-            return False, f"Rate limit exceeded. Maximum {settings.security.max_requests_per_session} requests per {settings.security.session_timeout_minutes} minutes."
+            return False, f"Rate limit exceeded. Maximum 50 requests per 30 minutes."
         
         try:
             query = f"{place_name}, {country}"
@@ -157,7 +161,7 @@ class PlacesService:
         url = f"{self.base_url}textsearch/json"
         params = {'query': query, 'key': self.api_key}
         headers = {
-            'User-Agent': settings.api.user_agent,
+            'User-Agent': USER_AGENT,
             'Accept': 'application/json'
         }
         
@@ -168,7 +172,7 @@ class PlacesService:
                 url, 
                 params=params, 
                 headers=headers, 
-                timeout=min(8, settings.security.request_timeout_seconds)
+                timeout=min(8, 15)
             )
             response.raise_for_status()
             
@@ -367,7 +371,7 @@ class PlacesService:
             'key': self.api_key
         }
         headers = {
-            'User-Agent': settings.api.user_agent,
+            'User-Agent': USER_AGENT,
             'Accept': 'application/json'
         }
         
@@ -376,7 +380,7 @@ class PlacesService:
                 url, 
                 params=params, 
                 headers=headers, 
-                timeout=min(6, settings.security.request_timeout_seconds)
+                timeout=min(6, 15)
             )
             response.raise_for_status()
             
