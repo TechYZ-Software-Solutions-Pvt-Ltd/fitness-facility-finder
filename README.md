@@ -1,15 +1,20 @@
-# 🏢 JustList - Advanced Search Application
+# 🏢 JustList - Universal Facility Finder
 
-A powerful, full-stack web application for finding any type of facilities in your area using Google Places API with comprehensive data enrichment, search history management, and legal compliance.
+A powerful, full-stack web application for finding any type of facilities worldwide using Google Places API with comprehensive data enrichment, search history management, and legal compliance.
+
+**🌐 Live Demo**: [Your Netlify URL]  
+**📊 Backend API**: [Your Render URL]  
+**📁 Repository**: https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/justlist
 
 ## ✨ Features
 
 ### 🔍 **Advanced Search Capabilities**
 - **Google Places API Integration** - Find facilities worldwide
+- **29 Facility Categories** - Fitness, Healthcare, Education, Retail, Hospitality, Finance, and more
+- **Hundreds of Facility Types** - Comprehensive taxonomy covering all business types
 - **Multi-source Data Enrichment** - Combines Google Places, Foursquare, Yelp, and web scraping
 - **Smart Location Selection** - Country, State, City dropdowns with filtering
-- **Facility Categories** - Organized by business types (Healthcare, Education, etc.)
-- **Customizable Results** - Choose which fields to display
+- **Customizable Results** - Choose which fields to display from 10+ options
 
 ### 📊 **Data Management**
 - **Search History** - Store and manage up to 30 recent searches
@@ -29,19 +34,31 @@ A powerful, full-stack web application for finding any type of facilities in you
 - **Rate Limiting** - Respectful API usage
 - **Data Attribution** - Proper source attribution
 
-## 🚀 Quick Start
+## 🚀 Deployment
 
-### Prerequisites
-- Node.js 16+ and npm
+### **Option 1: Use Live Deployment** (Recommended)
+The app is already deployed and ready to use:
+- **Frontend (Netlify)**: Free, fast, globally distributed
+- **Backend (Render)**: Free tier, auto-scales
+- **Total Cost**: $0/month
+
+See `CONNECT_FRONTEND_BACKEND.md` for connection details.
+
+### **Option 2: Local Development**
+
+For local development and testing, see `LOCAL_SETUP.md` for complete instructions.
+
+#### Prerequisites
+- Node.js 18+ and npm
 - Python 3.8+
-- Google Places API key
+- Google Places API key (optional for registration/login testing)
 
-### Installation
+#### Quick Setup
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd "Facilty Search Demo"
+   git clone https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/justlist.git
+   cd justlist
    ```
 
 2. **Backend Setup**
