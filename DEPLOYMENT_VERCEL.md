@@ -51,18 +51,21 @@ In Vercel dashboard:
 1. Go to your project settings
 2. Navigate to "Environment Variables"
 3. Add:
-   - `REACT_APP_API_URL`: `https://your-backend-url.railway.app`
+   - `REACT_APP_API_URL`: `https://your-backend-name.onrender.com`
 
-### Step 4: Deploy Backend (Railway)
-1. Go to [railway.app](https://railway.app)
+### Step 4: Deploy Backend (Render - 100% Free)
+1. Go to [render.com](https://render.com)
 2. Sign up with GitHub
-3. Create new project from GitHub repo
+3. Create new Web Service from GitHub repo
 4. Select your repository
-5. Railway will auto-detect Python and deploy
-6. Get your backend URL from Railway dashboard
+5. Configure:
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `python start_backend.py`
+   - Instance Type: Free
+6. Get your backend URL from Render dashboard
 
 ### Step 5: Update Frontend API URL
-1. In Vercel dashboard, update `REACT_APP_API_URL` to your Railway backend URL
+1. In Vercel dashboard, update `REACT_APP_API_URL` to your Render backend URL
 2. Redeploy the frontend
 
 ### 🎉 Success!
