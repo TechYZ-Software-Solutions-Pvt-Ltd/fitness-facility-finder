@@ -2,9 +2,20 @@
 
 A powerful, full-stack web application for finding any type of facilities worldwide using Google Places API with comprehensive data enrichment, search history management, and legal compliance.
 
-**🌐 Live Demo**: [Your Netlify URL]  
-**📊 Backend API**: [Your Render URL]  
+**🌐 Live Demo**: Deploy to Netlify (see `DEPLOYMENT_GUIDE.md`)  
+**📊 Backend API**: Deploy to Render (see `DEPLOYMENT_GUIDE.md`)  
 **📁 Repository**: https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/justlist
+
+## ✅ **Latest Updates (v2.0)**
+
+- ✅ **Critical Bug Fixed**: Google Places API URL corrected - search now works!
+- ✅ **29 Facility Categories**: Universal facility finder with comprehensive taxonomy
+- ✅ **API Key Browser Storage**: User API keys saved in browser (not database)
+- ✅ **Registration Success UX**: Professional success message with auto-redirect
+- ✅ **Comprehensive Help**: All 6 API setup guides in Settings → Help tab
+- ✅ **Better Error Messages**: Detailed error reporting from Google API
+- ✅ **Database Initialization**: Easy setup with `init_database.py`
+- ✅ **Free Deployment**: Netlify + Render = $0/month
 
 ## ✨ Features
 
