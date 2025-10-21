@@ -1,4 +1,4 @@
-# Multi-stage build for React frontend and FastAPI backend
+# Multi-stage build for JustList React frontend and FastAPI backend
 
 # Stage 1: Build React frontend
 FROM node:18-alpine as frontend-build

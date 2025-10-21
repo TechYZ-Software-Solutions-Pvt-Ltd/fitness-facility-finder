@@ -16,7 +16,7 @@
 1. Go to [vercel.com](https://vercel.com)
 2. Sign up/Login with GitHub
 3. Click "New Project"
-4. Import your repository: `TechYZ-Software-Solutions-Pvt-Ltd/fitness-facility-finder`
+4. Import your repository: `TechYZ-Software-Solutions-Pvt-Ltd/justlist`
 5. Configure build settings:
    - **Framework Preset**: Create React App
    - **Root Directory**: `frontend`

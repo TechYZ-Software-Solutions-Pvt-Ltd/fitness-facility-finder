@@ -1,5 +1,5 @@
 """
-JustList - Facility Finder
+JustList
 Streamlit version of our React application
 """
 
@@ -13,7 +13,7 @@ from typing import List, Dict, Any, Optional
 
 # Page configuration
 st.set_page_config(
-    page_title="JustList - Facility Finder",
+    page_title="JustList",
     page_icon="🏢",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -243,7 +243,7 @@ if not st.session_state.authenticated:
     else:
         # Public home page
         st.markdown("""
-        ### Welcome to JustList - Facility Finder
+        ### Welcome to JustList
         
         **Find facilities worldwide using Google Places API**
         
@@ -356,6 +356,6 @@ st.markdown("---")
 st.markdown("""
 <div style="text-align: center; color: #666; margin-top: 2rem;">
     Built with ❤️ using Streamlit | Powered by Google Places API<br>
-    For support, visit our <a href="https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/fitness-facility-finder" target="_blank">GitHub repository</a>
+    For support, visit our <a href="https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/justlist" target="_blank">GitHub repository</a>
 </div>
 """, unsafe_allow_html=True)

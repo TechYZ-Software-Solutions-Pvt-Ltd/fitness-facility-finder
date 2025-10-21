@@ -30,7 +30,7 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import { AVAILABLE_FIELDS, defaultFields, fieldDescriptions } from '../data/fields';
+import { defaultFields } from '../data/fields';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { facilitiesAPI } from '../services/api';
@@ -58,7 +58,7 @@ const Header: React.FC = () => {
   const toggle = (v: boolean) => () => setOpen(v);
   const [selected, setSelected] = React.useState<string[]>(() => {
     const saved = localStorage.getItem('selected_fields');
-    return saved ? JSON.parse(saved) : ['name', 'formatted_address', 'rating'];
+    return saved ? JSON.parse(saved) : defaultFields;
   });
   
   // Search history state
@@ -89,8 +89,8 @@ const Header: React.FC = () => {
   };
 
   const onReset = () => {
-    setSelected(['name', 'formatted_address', 'rating']);
-    localStorage.setItem('selected_fields', JSON.stringify(['name', 'formatted_address', 'rating']));
+    setSelected(defaultFields);
+    localStorage.setItem('selected_fields', JSON.stringify(defaultFields));
   };
 
   const handleApplySettings = () => {

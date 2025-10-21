@@ -1,6 +1,6 @@
-# 🏢 Facility Finder - Advanced Search Application
+# 🏢 JustList - Advanced Search Application
 
-A powerful, full-stack web application for finding facilities using Google Places API with comprehensive data enrichment, search history management, and legal compliance.
+A powerful, full-stack web application for finding any type of facilities in your area using Google Places API with comprehensive data enrichment, search history management, and legal compliance.
 
 ## ✨ Features
 

@@ -20,7 +20,7 @@ Your backend is already configured with:
 1. **Go to [render.com](https://render.com)**
 2. **Sign up/Login with GitHub**
 3. **Click "New +" → "Web Service"**
-4. **Connect your repository**: `TechYZ-Software-Solutions-Pvt-Ltd/fitness-facility-finder`
+4. **Connect your repository**: `TechYZ-Software-Solutions-Pvt-Ltd/justlist`
 5. **Configure settings**:
    - **Name**: `facility-finder-backend`
    - **Environment**: `Python 3`

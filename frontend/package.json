@@ -1,7 +1,7 @@
 {
-  "name": "facility-finder-frontend",
+  "name": "justlist-frontend",
   "version": "1.0.0",
-  "description": "React frontend for Facility Finder - Generic facility search application",
+  "description": "React frontend for JustList - Find any type of facilities in your area",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.0",
