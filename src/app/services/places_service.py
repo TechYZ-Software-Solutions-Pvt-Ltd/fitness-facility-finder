@@ -12,9 +12,9 @@ GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place"
 USER_AGENT = "Fitness-Facility-Finder/2.0"
 MAX_RESULTS_LIMIT = 60
 DEFAULT_MAX_RESULTS = 20
-from models.facility import Facility, SearchQuery, SearchResult, ContactInfo
-from utils.security import check_rate_limit, increment_request_count, secure_log_request
-from utils.web_scraper import scrape_website_for_contacts
+from src.app.models.facility import Facility, SearchQuery, SearchResult, ContactInfo
+from src.app.utils.security import check_rate_limit, increment_request_count, secure_log_request
+from src.app.utils.web_scraper import scrape_website_for_contacts
 
 logger = logging.getLogger(__name__)
 

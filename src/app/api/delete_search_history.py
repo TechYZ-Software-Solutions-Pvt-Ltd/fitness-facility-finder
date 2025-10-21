@@ -6,10 +6,10 @@ from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel
 from typing import Optional
 import logging
-from database.connection import get_db
+from src.app.database.connection import get_db
 from sqlalchemy.orm import Session
-from database.models import SearchHistory, User
-from auth.dependencies import get_current_user
+from src.app.database.models import SearchHistory, User
+from src.app.auth.dependencies import get_current_user
 
 logger = logging.getLogger(__name__)
 

@@ -10,7 +10,7 @@ import logging
 from urllib.parse import urljoin, urlparse
 import json
 
-from models.facility import ContactInfo
+from src.app.models.facility import ContactInfo
 
 logger = logging.getLogger(__name__)
 

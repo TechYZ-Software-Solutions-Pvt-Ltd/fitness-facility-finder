@@ -12,12 +12,12 @@ import logging
 import json
 from dataclasses import asdict
 
-from database.connection import get_db
-from database.models import User, SearchHistory, Facility
-from auth.dependencies import get_current_user, get_optional_user
+from src.app.database.connection import get_db
+from src.app.database.models import User, SearchHistory, Facility
+from src.app.auth.dependencies import get_current_user, get_optional_user
 from pydantic import BaseModel
-from services.places_service import PlacesService
-from models.facility import SearchQuery
+from src.app.services.places_service import PlacesService
+from src.app.models.facility import SearchQuery
 
 router = APIRouter(prefix="/facilities", tags=["facilities"])
 
