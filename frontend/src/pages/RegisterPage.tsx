@@ -21,6 +21,7 @@ const RegisterPage: React.FC = () => {
     fullName: ''
   });
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -80,7 +81,10 @@ const RegisterPage: React.FC = () => {
 
     try {
       await register(formData.email, formData.username, formData.password, formData.fullName);
-      navigate('/login');
+      setSuccess(true);
+      setError('');
+      // Redirect to login after showing success message
+      setTimeout(() => navigate('/login'), 2500);
     } catch (err: any) {
       const backend = err?.response?.data?.detail;
       // Map common backend messages to friendlier hints
@@ -89,6 +93,7 @@ const RegisterPage: React.FC = () => {
         message = 'Your password is too long. Please use up to 72 characters and avoid emoji or unusual symbols.';
       }
       setError(message);
+      setSuccess(false);
     } finally {
       setIsLoading(false);
     }
@@ -98,6 +103,13 @@ const RegisterPage: React.FC = () => {
     <Container maxWidth="sm" sx={{ py: 4 }}>
       <FormContainer title="Register">
         {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        {success && (
+          <Alert severity="success" sx={{ mb: 2 }}>
+            <strong>Registration Successful!</strong>
+            <br />
+            Your account has been created. Redirecting to login page...
+          </Alert>
+        )}
 
         <form onSubmit={handleSubmit}>
           <FormTextField
@@ -181,11 +193,11 @@ const RegisterPage: React.FC = () => {
           <FormButton
             type="submit"
             fullWidth
-            disabled={isLoading}
+            disabled={isLoading || success}
             position="center"
             sx={{ mb: 2 }}
           >
-            {isLoading ? 'Registering...' : 'Register'}
+            {isLoading ? 'Registering...' : success ? 'Registration Successful!' : 'Register'}
           </FormButton>
           
           <FormLink href="/login">
