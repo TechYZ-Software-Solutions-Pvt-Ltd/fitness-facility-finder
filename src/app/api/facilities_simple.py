@@ -75,8 +75,18 @@ async def search_facilities(
     if not ok:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=msg)
 
-    service = PlacesService(api_key=search_request.api_key)
-    result = service.search_places(query)
+    try:
+        service = PlacesService(api_key=search_request.api_key)
+        result = service.search_places(query)
+    except HTTPException as e:
+        # Re-raise HTTP exceptions from Places service
+        raise e
+    except Exception as e:
+        logger.error(f"Unexpected error during search: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Search failed: {str(e)}"
+        )
 
     # Skip search history for now (no authentication)
     # TODO: Add back when authentication is working

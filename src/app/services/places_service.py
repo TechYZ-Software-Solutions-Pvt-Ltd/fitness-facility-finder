@@ -182,10 +182,16 @@ class PlacesService:
             if data.get('status') != 'OK':
                 error_status = data.get('status')
                 error_message = data.get('error_message', 'No error message provided')
-                logger.warning(f"Google Places API error: {error_status} - {error_message}")
+                logger.error(f"Google Places API error: {error_status} - {error_message}")
+                logger.error(f"Failed query: '{query}'")
+                logger.error(f"Full API response: {data}")
                 
-                # Log the query that failed for debugging
-                logger.warning(f"Failed query: {query}")
+                # Raise exception with detailed error for frontend
+                from fastapi import HTTPException
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Google Places API Error: {error_status}. {error_message}. Query: '{query}'"
+                )
                 
                 return []
             
