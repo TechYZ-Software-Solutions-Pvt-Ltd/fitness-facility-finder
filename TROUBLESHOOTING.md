@@ -1,5 +1,16 @@
 # 🔧 Troubleshooting Guide
 
+## ✅ **RESOLVED: Critical Bug Fixed**
+
+**The "No facilities found" issue was caused by a missing slash in the Google Places API URL.**
+- ✅ **Fixed in latest version** (commit d80d97b)
+- ✅ **Search now works** with valid Google API key
+- ✅ **All 29 facility categories** functional
+
+If you're still experiencing issues, see solutions below.
+
+---
+
 ## Common Issues and Solutions
 
 ### 🔍 **Issue: "No facilities found. Try adjusting your search criteria."**
