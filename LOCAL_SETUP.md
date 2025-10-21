@@ -15,6 +15,26 @@ cd "C:\Users\roh90\Downloads\AI Projects\FacilitySearch.workspace\Facilty Search
 pip install -r requirements.txt
 ```
 
+### Step 1.5: Initialize Database Tables ⚠️ **IMPORTANT**
+
+Before running the app for the first time, create the database tables:
+
+```bash
+python init_database.py
+```
+
+**Expected output:**
+```
+✅ Database tables created successfully!
+   - users
+   - search_history
+   - facilities
+
+🎉 Database is ready! You can now start the application.
+```
+
+**Note:** Only run this once. The backend will handle the database after initial setup.
+
 ### Step 2: Set Up Environment Variables
 
 Create a file named `.env` in the root directory:
