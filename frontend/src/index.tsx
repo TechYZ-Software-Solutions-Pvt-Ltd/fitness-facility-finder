@@ -27,7 +27,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter>
+        <BrowserRouter basename="/justlist">
           <App />
         </BrowserRouter>
       </ThemeProvider>
