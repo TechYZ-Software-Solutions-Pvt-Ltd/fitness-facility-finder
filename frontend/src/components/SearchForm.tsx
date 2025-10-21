@@ -185,126 +185,141 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
 
   return (
     <FormContainer title="Find Facilities">
-      {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+      {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
 
-      <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <FormTextField
-          label="Google Places API Key"
-          type={showApiKey ? 'text' : 'password'}
-          value={apiKey}
-          onChange={(e) => {
-            const newKey = e.target.value;
-            setApiKey(newKey);
-            // Save to localStorage (browser only, NOT database)
-            localStorage.setItem('google_api_key', newKey);
-          }}
-          placeholder="AIza..."
-          helperText="Enter your Google Places API key (saved in browser only)"
-          fullWidth
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton aria-label="toggle api key visibility" onClick={() => setShowApiKey(v => !v)} edge="end">
-                  {showApiKey ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            )
-          }}
-        />
-
-        {/* Row 1: Location selectors (searchable) */}
-        <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ alignItems: 'center' }}>
-          <FormSelect
-            label="Country"
-            value={country}
-            onChange={(val) => {
-              setCountry(val);
-              setState('');
-              setCity('');
-            }}
-            // Using filtered list of developed/developing countries
-            // To show ALL countries, change SHOW_ALL_COUNTRIES to true in getCountries() function above
-            options={getCountries().map((c: ICountry) => ({
-              value: c.name,
-              label: c.name
-            }))}
-            placeholder="Select Country"
-            sx={{ flex: 1, minWidth: 220 }}
-          />
-          <FormSelect
-            label="State / Province"
-            value={state}
-            onChange={(val) => {
-              setState(val);
-              setCity('');
-            }}
-            options={(country ? CState.getStatesOfCountry((getCountries().find((c: ICountry) => c.name === country)?.isoCode || '')) : []).map((s: IState) => ({
-              value: s.name,
-              label: s.name
-            }))}
-            placeholder="Select State"
-            sx={{ flex: 1, minWidth: 220 }}
-          />
-          <FormSelect
-            label="City / Area"
-            value={city}
-            onChange={setCity}
-            options={(country && state ? CCity.getCitiesOfState(
-              (getCountries().find((c: ICountry) => c.name === country)?.isoCode || ''),
-              (CState.getStatesOfCountry((getCountries().find((c: ICountry) => c.name === country)?.isoCode || '')).find((s: IState) => s.name === state)?.isoCode || '')
-            ) : []).map((c: ICity) => ({
-              value: c.name,
-              label: c.name
-            }))}
-            placeholder="Select City"
-            sx={{ flex: 1, minWidth: 220 }}
-          />
-        </Stack>
-
-        {/* Row 2: Facility selectors and max results */}
-        <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} sx={{ alignItems: 'center' }}>
-          <FormSelect
-            label="Facility Category"
-            value={facilityCategory}
-            onChange={(cat) => {
-              setFacilityCategory(cat);
-              // Set first type from the selected category
-              const typesForCategory = FACILITY_CATEGORIES[cat] || [];
-              if (typesForCategory.length > 0) {
-                setPlaceType(typesForCategory[0]);
-              }
-            }}
-            options={Object.keys(FACILITY_CATEGORIES).map(cat => ({
-              value: cat,
-              label: cat
-            }))}
-            sx={{ minWidth: 160, flex: 1 }}
-          />
-
-          <FormSelect
-            label="Facility Type"
-            value={placeType}
-            onChange={setPlaceType}
-            options={(FACILITY_CATEGORIES[facilityCategory] || []).map(type => ({
-              value: type,
-              label: type
-            }))}
-            sx={{ minWidth: 160, flex: 1 }}
-          />
-
+      <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {/* API Key Section */}
+        <Box sx={{ width: '100%' }}>
           <FormTextField
-            label="Max Results"
-            type="number"
-            value={maxResults}
-            onChange={(e) => setMaxResults(Number(e.target.value))}
-            inputProps={{ min: 1, max: 50 }}
-            sx={{ minWidth: 160, flex: 1 }}
+            label="Google Places API Key"
+            type={showApiKey ? 'text' : 'password'}
+            value={apiKey}
+            onChange={(e) => {
+              const newKey = e.target.value;
+              setApiKey(newKey);
+              // Save to localStorage (browser only, NOT database)
+              localStorage.setItem('google_api_key', newKey);
+            }}
+            placeholder="AIza..."
+            helperText="Enter your Google Places API key (saved in browser only)"
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton aria-label="toggle api key visibility" onClick={() => setShowApiKey(v => !v)} edge="end">
+                    {showApiKey ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
           />
-        </Stack>
+        </Box>
+
+        {/* Location Section */}
+        <Box sx={{ width: '100%' }}>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 3, md: 3 }} sx={{ alignItems: { xs: 'stretch', md: 'flex-start' } }}>
+            <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 200 } }}>
+              <FormSelect
+                label="Country"
+                value={country}
+                onChange={(val) => {
+                  setCountry(val);
+                  setState('');
+                  setCity('');
+                }}
+                options={getCountries().map((c: ICountry) => ({
+                  value: c.name,
+                  label: c.name
+                }))}
+                placeholder="Select Country"
+                fullWidth
+              />
+            </Box>
+            <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 200 } }}>
+              <FormSelect
+                label="State / Province"
+                value={state}
+                onChange={(val) => {
+                  setState(val);
+                  setCity('');
+                }}
+                options={(country ? CState.getStatesOfCountry((getCountries().find((c: ICountry) => c.name === country)?.isoCode || '')) : []).map((s: IState) => ({
+                  value: s.name,
+                  label: s.name
+                }))}
+                placeholder="Select State"
+                fullWidth
+              />
+            </Box>
+            <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 200 } }}>
+              <FormSelect
+                label="City / Area"
+                value={city}
+                onChange={setCity}
+                options={(country && state ? CCity.getCitiesOfState(
+                  (getCountries().find((c: ICountry) => c.name === country)?.isoCode || ''),
+                  (CState.getStatesOfCountry((getCountries().find((c: ICountry) => c.name === country)?.isoCode || '')).find((s: IState) => s.name === state)?.isoCode || '')
+                ) : []).map((c: ICity) => ({
+                  value: c.name,
+                  label: c.name
+                }))}
+                placeholder="Select City"
+                fullWidth
+              />
+            </Box>
+          </Stack>
+        </Box>
+
+        {/* Facility Section */}
+        <Box sx={{ width: '100%' }}>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 3, md: 3 }} sx={{ alignItems: { xs: 'stretch', md: 'flex-start' } }}>
+            <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 180 } }}>
+              <FormSelect
+                label="Facility Category"
+                value={facilityCategory}
+                onChange={(cat) => {
+                  setFacilityCategory(cat);
+                  // Set first type from the selected category
+                  const typesForCategory = FACILITY_CATEGORIES[cat] || [];
+                  if (typesForCategory.length > 0) {
+                    setPlaceType(typesForCategory[0]);
+                  }
+                }}
+                options={Object.keys(FACILITY_CATEGORIES).map(cat => ({
+                  value: cat,
+                  label: cat
+                }))}
+                fullWidth
+              />
+            </Box>
+            <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 180 } }}>
+              <FormSelect
+                label="Facility Type"
+                value={placeType}
+                onChange={setPlaceType}
+                options={(FACILITY_CATEGORIES[facilityCategory] || []).map(type => ({
+                  value: type,
+                  label: type
+                }))}
+                fullWidth
+              />
+            </Box>
+            <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 180 } }}>
+              <FormTextField
+                label="Max Results"
+                type="number"
+                value={maxResults}
+                onChange={(e) => setMaxResults(Number(e.target.value))}
+                inputProps={{ min: 1, max: 50 }}
+                fullWidth
+              />
+            </Box>
+          </Stack>
+        </Box>
 
         {/* Loading indicator */}
         {isLoading && (
-          <Box sx={{ width: '100%', mb: 2 }}>
+          <Box sx={{ width: '100%', mt: 1 }}>
             <LinearProgress 
               sx={{ 
                 height: 4,
@@ -317,13 +332,16 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
           </Box>
         )}
 
-        <FormButton
-          onClick={handleSearch}
-          disabled={isLoading}
-          position="right"
-        >
-          {isLoading ? 'Searching...' : 'Search Facilities'}
-        </FormButton>
+        {/* Search Button */}
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+          <FormButton
+            onClick={handleSearch}
+            disabled={isLoading}
+            position="right"
+          >
+            {isLoading ? 'Searching...' : 'Search Facilities'}
+          </FormButton>
+        </Box>
       </Box>
     </FormContainer>
   );

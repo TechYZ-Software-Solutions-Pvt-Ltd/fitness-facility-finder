@@ -67,7 +67,7 @@ For local development and testing, see `LOCAL_SETUP.md` for complete instruction
 #### Quick Setup
 
 1. **Clone the repository**
-   ```bash
+```bash
    git clone https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/justlist.git
    cd justlist
    ```
@@ -82,11 +82,11 @@ For local development and testing, see `LOCAL_SETUP.md` for complete instruction
    ```
 
 3. **Frontend Setup**
-   ```bash
+```bash
    # Navigate to frontend directory
    cd frontend
-   
-   # Install dependencies
+
+# Install dependencies
    npm install
    
    # Start the development server
