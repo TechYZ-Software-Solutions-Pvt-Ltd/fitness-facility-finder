@@ -30,7 +30,7 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { AVAILABLE_FIELDS, defaultFields, fieldDescriptions } from '../data/fields';
+import { defaultFields } from '../data/fields';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { facilitiesAPI } from '../services/api';
@@ -444,7 +444,7 @@ const Header: React.FC = () => {
                       Selection Summary
                     </Typography>
                     <Chip 
-                      label={`${selected.length} of ${Object.keys(AVAILABLE_FIELDS).reduce((acc, cat) => acc + Object.keys(AVAILABLE_FIELDS[cat]).length, 0)} fields selected`}
+                      label={`${selected.length} of 10 fields selected`}
                       size="small"
                       color="primary"
                       variant="outlined"
@@ -456,7 +456,12 @@ const Header: React.FC = () => {
                 </Box>
 
                 {/* Field Categories */}
-                {Object.entries(AVAILABLE_FIELDS).map(([category, fields]) => (
+                {Object.entries({
+                  'Basic Information': { name: 'Facility Name', place_id: 'Place ID' },
+                  'Contact Information': { formatted_phone_number: 'Phone', website: 'Website' },
+                  'Location Details': { formatted_address: 'Address', vicinity: 'Vicinity' },
+                  'Ratings & Reviews': { rating: 'Rating', user_ratings_total: 'Total Reviews' }
+                }).map(([category, fields]) => (
                   <Box key={category} sx={{ mb: 3 }}>
                     {/* Category Header */}
                     <Box sx={{ 
@@ -536,7 +541,7 @@ const Header: React.FC = () => {
                                     fontStyle: 'italic'
                                   }}
                                 >
-                                  {fieldDescriptions[key] || 'No description available'}
+                                  {'Field description'}
                     </Typography>
                   </Box>
                             }

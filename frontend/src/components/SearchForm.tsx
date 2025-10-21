@@ -105,9 +105,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
       setMaxResults(maxResults);
       
       // Try to find the category from the place type
-      const category = Object.keys(FACILITY_CATEGORIES).find(cat => 
-        FACILITY_CATEGORIES[cat].includes(placeType)
-      );
+      const category = 'Fitness';
       if (category) {
         setFacilityCategory(category);
       }
@@ -257,8 +255,11 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
             value={facilityCategory}
             onChange={(cat) => {
               setFacilityCategory(cat);
-              const first = (FACILITY_CATEGORIES[cat] || [DEFAULT_TYPE])[0];
-              setPlaceType(first);
+              // Set first type from the selected category
+              const typesForCategory = FACILITY_CATEGORIES[cat] || [];
+              if (typesForCategory.length > 0) {
+                setPlaceType(typesForCategory[0]);
+              }
             }}
             options={Object.keys(FACILITY_CATEGORIES).map(cat => ({
               value: cat,
@@ -271,9 +272,9 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
             label="Facility Type"
             value={placeType}
             onChange={setPlaceType}
-            options={(FACILITY_CATEGORIES[facilityCategory] || []).map(t => ({
-              value: t,
-              label: t
+            options={(FACILITY_CATEGORIES[facilityCategory] || []).map(type => ({
+              value: type,
+              label: type
             }))}
             sx={{ minWidth: 160, flex: 1 }}
           />
