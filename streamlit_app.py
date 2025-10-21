@@ -44,7 +44,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # API Configuration
-API_BASE_URL = st.secrets.get("API_BASE_URL", "http://localhost:8000")
+try:
+    API_BASE_URL = st.secrets.get("API_BASE_URL", "http://localhost:8000")
+except:
+    API_BASE_URL = "http://localhost:8000"
 
 def search_facilities(api_key, place_type, city, country, max_results=20):
     """Search for facilities using the API"""
