@@ -171,7 +171,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         setError('Please register or login to search. Redirecting to registration...');
         setTimeout(() => navigate('/register'), 800);
       } else {
-        setError(err.message || 'Search failed');
+        // Show detailed error from backend if available
+        const backendError = err?.response?.data?.detail;
+        const displayError = backendError || err.message || 'Search failed';
+        setError(displayError);
+        console.error('Search error:', err);
+        console.error('Backend response:', err?.response?.data);
       }
     } finally {
       setIsLoading(false);
