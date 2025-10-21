@@ -59,7 +59,10 @@ interface SearchFormProps {
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const navigate = useNavigate();
   const { user, token } = useAuth();
-  const [apiKey, setApiKey] = useState('');
+  const [apiKey, setApiKey] = useState(() => {
+    // Load API key from localStorage (browser storage only, not database)
+    return localStorage.getItem('google_api_key') || '';
+  });
   const [country, setCountry] = useState('India');
   const [state, setState] = useState<string>('');
   const [city, setCity] = useState('Mumbai');
@@ -184,9 +187,14 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
           label="Google Places API Key"
           type={showApiKey ? 'text' : 'password'}
           value={apiKey}
-          onChange={(e) => setApiKey(e.target.value)}
+          onChange={(e) => {
+            const newKey = e.target.value;
+            setApiKey(newKey);
+            // Save to localStorage (browser only, NOT database)
+            localStorage.setItem('google_api_key', newKey);
+          }}
           placeholder="AIza..."
-          helperText="Enter your Google Places API key"
+          helperText="Enter your Google Places API key (saved in browser only)"
           fullWidth
           InputProps={{
             endAdornment: (
