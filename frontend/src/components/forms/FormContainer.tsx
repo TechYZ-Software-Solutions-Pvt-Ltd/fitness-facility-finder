@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, PaperProps } from '@mui/material';
+import { Paper, PaperProps, Box } from '@mui/material';
 
 interface FormContainerProps extends PaperProps {
   title?: string;
@@ -17,7 +17,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
     <Paper
       elevation={0}
       sx={{
-        p: 4,
+        p: { xs: 3, sm: 4 },
         mb: 4,
         borderRadius: 0,
         border: '1px solid rgba(0,0,0,0.06)'
@@ -25,10 +25,10 @@ const FormContainer: React.FC<FormContainerProps> = ({
       {...props}
     >
       {title && (
-        <div style={{ marginBottom: '24px' }}>
+        <Box sx={{ mb: 3 }}>
           <h2
             style={{
-              fontSize: '2rem',
+              fontSize: '1.75rem',
               fontWeight: 700,
               color: '#6750A4',
               letterSpacing: '-0.02em',
@@ -50,7 +50,7 @@ const FormContainer: React.FC<FormContainerProps> = ({
               {subtitle}
             </p>
           )}
-        </div>
+        </Box>
       )}
       {children}
     </Paper>
