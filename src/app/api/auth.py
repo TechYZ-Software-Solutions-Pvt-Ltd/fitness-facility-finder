@@ -7,9 +7,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from datetime import datetime
 
-from database.connection import get_db
-from database.models import User
-from auth.security import (
+from src.app.database.connection import get_db
+from src.app.database.models import User
+from src.app.auth.security import (
     get_password_hash, 
     verify_password, 
     create_tokens,
@@ -18,7 +18,7 @@ from auth.security import (
     UserResponse,
     Token
 )
-from auth.dependencies import get_current_user
+from src.app.auth.dependencies import get_current_user
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
@@ -26,37 +26,54 @@ router = APIRouter(prefix="/auth", tags=["authentication"])
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def register_user(user_data: UserCreate, db: Session = Depends(get_db)):
     """Register a new user."""
-    # Check if user already exists
-    existing_user = db.query(User).filter(
-        (User.email == user_data.email) | (User.username == user_data.username)
-    ).first()
+    import logging
+    logger = logging.getLogger("facility_finder")
+    logger.info(f"auth.register:start email={user_data.email} username={user_data.username}")
     
-    if existing_user:
-        if existing_user.email == user_data.email:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Email already registered"
-            )
-        else:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Username already taken"
-            )
-    
-    # Create new user
-    hashed_password = get_password_hash(user_data.password)
-    db_user = User(
-        email=user_data.email,
-        username=user_data.username,
-        hashed_password=hashed_password,
-        full_name=user_data.full_name,
-        is_active=True,
-        is_verified=False  # Email verification can be added later
-    )
-    
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
+    try:
+        # Check if user already exists
+        existing_user = db.query(User).filter(
+            (User.email == user_data.email) | (User.username == user_data.username)
+        ).first()
+        
+        if existing_user:
+            if existing_user.email == user_data.email:
+                logger.warning(f"auth.register:failed reason=email_exists email={user_data.email}")
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Email already registered"
+                )
+            else:
+                logger.warning(f"auth.register:failed reason=username_exists username={user_data.username}")
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="Username already taken"
+                )
+        
+        # Create new user
+        hashed_password = get_password_hash(user_data.password)
+        db_user = User(
+            email=user_data.email,
+            username=user_data.username,
+            hashed_password=hashed_password,
+            full_name=user_data.full_name,
+            is_active=True,
+            is_verified=False  # Email verification can be added later
+        )
+        
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
+        
+        logger.info(f"auth.register:success user_id={db_user.id} username={db_user.username}")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"auth.register:error {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Registration failed: {str(e)}"
+        )
     
     return UserResponse(
         id=db_user.id,

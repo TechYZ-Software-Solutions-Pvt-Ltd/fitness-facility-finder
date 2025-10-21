@@ -12,12 +12,12 @@ import logging
 import json
 from dataclasses import asdict
 
-from database.connection import get_db
-from database.models import User, SearchHistory, Facility
-from auth.dependencies import get_current_user, get_optional_user
+from src.app.database.connection import get_db
+from src.app.database.models import User, SearchHistory, Facility
+from src.app.auth.dependencies import get_current_user, get_optional_user
 from pydantic import BaseModel
-from services.places_service import PlacesService
-from models.facility import SearchQuery
+from src.app.services.places_service import PlacesService
+from src.app.models.facility import SearchQuery
 
 router = APIRouter(prefix="/facilities", tags=["facilities"])
 
@@ -75,8 +75,18 @@ async def search_facilities(
     if not ok:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=msg)
 
-    service = PlacesService(api_key=search_request.api_key)
-    result = service.search_places(query)
+    try:
+        service = PlacesService(api_key=search_request.api_key)
+        result = service.search_places(query)
+    except HTTPException as e:
+        # Re-raise HTTP exceptions from Places service
+        raise e
+    except Exception as e:
+        logger.error(f"Unexpected error during search: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Search failed: {str(e)}"
+        )
 
     # Skip search history for now (no authentication)
     # TODO: Add back when authentication is working

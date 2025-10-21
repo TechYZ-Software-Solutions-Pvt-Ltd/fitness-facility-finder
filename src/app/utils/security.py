@@ -10,7 +10,10 @@ from datetime import datetime
 import logging
 import threading
 
-from config.settings import settings
+# Configuration constants (replacing deleted config.settings)
+MAX_REQUESTS_PER_SESSION = 50
+SESSION_TIMEOUT_MINUTES = 30
+REQUEST_TIMEOUT_SECONDS = 15
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +95,18 @@ def validate_business_type_input(business_type: str) -> Tuple[bool, str]:
 
 def validate_api_key(api_key: str) -> Tuple[bool, str]:
     """Validate Google Places API key format."""
-    return settings.validate_api_key(api_key)
+    # Simple API key validation
+    if not api_key:
+        return False, "API key is required"
+    
+    if len(api_key) < 20 or len(api_key) > 200:
+        return False, "API key must be between 20 and 200 characters"
+    
+    # Google API key format validation
+    if not re.match(r'^AIza[0-9A-Za-z_-]{35}$', api_key):
+        return False, "Invalid Google API key format"
+    
+    return True, "Valid API key"
 
 
 def check_rate_limit() -> bool:
@@ -103,7 +117,7 @@ def check_rate_limit() -> bool:
         session_duration = current_time - session_start
         
         # Check if session has expired
-        if session_duration > settings.security.session_timeout_minutes * 60:
+        if session_duration > SESSION_TIMEOUT_MINUTES * 60:
             # Reset session but add cooldown period to prevent rapid resets
             cooldown_period = 60  # 1 minute cooldown
             last_reset = st.session_state.get('last_reset', 0)
@@ -119,7 +133,7 @@ def check_rate_limit() -> bool:
         
         # Check current request count
         current_count = st.session_state.get('request_count', 0)
-        return current_count < settings.security.max_requests_per_session
+        return current_count < MAX_REQUESTS_PER_SESSION
 
 
 def increment_request_count():
@@ -173,7 +187,7 @@ def validate_search_inputs(place_type: str, city: str, country: str, max_results
         return False, f"Country: {error_msg}"
     
     # Validate max results
-    if not isinstance(max_results, int) or max_results < 1 or max_results > settings.api.max_results_limit:
-        return False, f"Max results must be between 1 and {settings.api.max_results_limit}"
+    if not isinstance(max_results, int) or max_results < 1 or max_results > 60:
+        return False, f"Max results must be between 1 and 60"
     
     return True, "Valid inputs"

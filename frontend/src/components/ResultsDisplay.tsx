@@ -30,6 +30,7 @@ interface SearchResult {
   search_query: any;
   timestamp: number;
   success: boolean;
+  error_message?: string;
 }
 
 interface ResultsDisplayProps {
@@ -44,9 +45,19 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
   if (!results.success || results.facilities.length === 0) {
     return (
       <Paper elevation={1} sx={{ p: 3, textAlign: 'center' }}>
-        <Typography variant="h6" color="textSecondary">
-          No facilities found. Try adjusting your search criteria.
+        <Typography variant="h6" color="textSecondary" gutterBottom>
+          No facilities found
         </Typography>
+        {results.error_message && (
+          <Typography variant="body2" color="error" sx={{ mt: 2, whiteSpace: 'pre-wrap' }}>
+            {results.error_message}
+          </Typography>
+        )}
+        {!results.error_message && (
+          <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
+            Try adjusting your search criteria or use a different location.
+          </Typography>
+        )}
       </Paper>
     );
   }

@@ -8,8 +8,8 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
 from typing import Optional
 
-from database.connection import get_db
-from database.models import User
+from src.app.database.connection import get_db
+from src.app.database.models import User
 from .security import verify_token, TokenData
 
 # HTTP Bearer token scheme
