@@ -971,75 +971,341 @@ const Header: React.FC = () => {
             )}
             
             {tabValue === 3 && (
-              <Box>
-                <Typography variant="h6" gutterBottom>
-                  Google Places API Setup Guide
-                </Typography>
-                
-                <Typography variant="body2" paragraph>
-                  This app uses Google Places API to find facilities. You'll need to get a free API key from Google.
-                </Typography>
-                
-                <Alert severity="info" sx={{ mb: 2 }}>
-                  <strong>Free to use!</strong> Google gives you $200 worth of free searches every month - that's enough for 11,000+ facility searches!
-                </Alert>
-                
-                <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1 }}>
-                  Quick Setup Steps:
-                </Typography>
-                <Box component="ol" sx={{ pl: 2, mb: 2 }}>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer">Google Cloud Console</a>
+              <Box sx={{ maxHeight: 'calc(100vh - 200px)', overflow: 'auto' }}>
+                {/* Google Places API */}
+                <Box sx={{ mb: 4, pb: 3, borderBottom: '2px solid', borderColor: 'divider' }}>
+                  <Typography variant="h6" gutterBottom fontWeight={600}>
+                    1. Google Places API
                   </Typography>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Create a new project or select existing one
+                  
+                  <Typography variant="body2" paragraph color="text.secondary">
+                    Primary data source for finding facilities worldwide. Required for basic search functionality.
                   </Typography>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Enable <strong>Places API</strong> in the API Library
+                  
+                  <Alert severity="info" sx={{ mb: 2 }}>
+                    <strong>$200/month free credit</strong> - Enough for 11,000+ facility searches!
+                  </Alert>
+                  
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1, fontWeight: 600 }}>
+                    Setup Steps:
                   </Typography>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Create an API Key in Credentials
-                  </Typography>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Set up billing (required for Places API)
-                  </Typography>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Copy your API key and paste it in the search form
-                  </Typography>
-                </Box>
-                
-                <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1 }}>
-                  Important Notes:
-                </Typography>
-                <Box component="ul" sx={{ pl: 2, mb: 2 }}>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Billing is required even for free usage (you won't be charged for the first $200)
-                  </Typography>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    Keep your API key secure and don't share it publicly
-                  </Typography>
-                  <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
-                    You can monitor your usage in Google Cloud Console
-                  </Typography>
-                </Box>
-                
-                <Box sx={{ mt: 3, p: 2, backgroundColor: 'background.default', borderRadius: 1 }}>
-                  <Typography variant="subtitle2" gutterBottom>
-                    Need More Help?
-                  </Typography>
-                  <Typography variant="body2" paragraph>
-                    For detailed step-by-step instructions with screenshots, visit the official Google documentation:
-                  </Typography>
+                  <Box component="ol" sx={{ pl: 2, mb: 2 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Go to <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" style={{fontWeight: 500}}>Google Cloud Console</a>
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create a new project or select existing one
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Enable <strong>Places API</strong> in the API Library
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create an API Key in Credentials section
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      <strong>Enable billing</strong> (required - you get $200 free/month)
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Copy API key and enter it in the search form
+                    </Typography>
+                  </Box>
+                  
                   <Button
-                variant="outlined"
+                    variant="outlined"
                     size="small"
                     href="https://developers.google.com/maps/documentation/places/web-service/cloud-setup"
                     target="_blank"
                     rel="noopener noreferrer"
-                    sx={{ textTransform: 'none' }}
+                    sx={{ textTransform: 'none', fontWeight: 500 }}
                   >
-                    Open Google's Setup Guide
+                    Official Setup Guide
                   </Button>
+                </Box>
+
+                {/* Foursquare Places API */}
+                <Box sx={{ mb: 4, pb: 3, borderBottom: '2px solid', borderColor: 'divider' }}>
+                  <Typography variant="h6" gutterBottom fontWeight={600}>
+                    2. Foursquare Places API
+                  </Typography>
+                  
+                  <Typography variant="body2" paragraph color="text.secondary">
+                    Additional venue data including tips, photos, and detailed business information.
+                  </Typography>
+                  
+                  <Alert severity="info" sx={{ mb: 2 }}>
+                    <strong>Free tier:</strong> 50,000 API calls/day
+                  </Alert>
+                  
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1, fontWeight: 600 }}>
+                    Setup Steps:
+                  </Typography>
+                  <Box component="ol" sx={{ pl: 2, mb: 2 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Go to <a href="https://foursquare.com/developers/" target="_blank" rel="noopener noreferrer" style={{fontWeight: 500}}>Foursquare Developers</a>
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Sign up or log in
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create a new app
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Get your API key from app details
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Enter API key in Data Sources tab
+                    </Typography>
+                  </Box>
+                  
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    href="https://foursquare.com/developers/signup"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ textTransform: 'none', fontWeight: 500 }}
+                  >
+                    Sign Up for Foursquare
+                  </Button>
+                </Box>
+
+                {/* Yelp Fusion API */}
+                <Box sx={{ mb: 4, pb: 3, borderBottom: '2px solid', borderColor: 'divider' }}>
+                  <Typography variant="h6" gutterBottom fontWeight={600}>
+                    3. Yelp Fusion API
+                  </Typography>
+                  
+                  <Typography variant="body2" paragraph color="text.secondary">
+                    Business reviews, ratings, photos, and pricing information.
+                  </Typography>
+                  
+                  <Alert severity="info" sx={{ mb: 2 }}>
+                    <strong>Free tier:</strong> 500 API calls/day
+                  </Alert>
+                  
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1, fontWeight: 600 }}>
+                    Setup Steps:
+                  </Typography>
+                  <Box component="ol" sx={{ pl: 2, mb: 2 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Go to <a href="https://www.yelp.com/developers/v3/manage_app" target="_blank" rel="noopener noreferrer" style={{fontWeight: 500}}>Yelp Developers</a>
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create a Yelp account or log in
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create a new app
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Get your API key
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Enter API key in Data Sources tab
+                    </Typography>
+                  </Box>
+                  
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    href="https://www.yelp.com/developers"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ textTransform: 'none', fontWeight: 500 }}
+                  >
+                    Yelp Developers Portal
+                  </Button>
+                </Box>
+
+                {/* OpenStreetMap */}
+                <Box sx={{ mb: 4, pb: 3, borderBottom: '2px solid', borderColor: 'divider' }}>
+                  <Typography variant="h6" gutterBottom fontWeight={600}>
+                    4. OpenStreetMap (OSM)
+                  </Typography>
+                  
+                  <Typography variant="body2" paragraph color="text.secondary">
+                    Open-source mapping data with global POI coverage. Completely free, no API key required!
+                  </Typography>
+                  
+                  <Alert severity="success" sx={{ mb: 2 }}>
+                    <strong>100% Free</strong> - No API key required, no rate limits
+                  </Alert>
+                  
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1, fontWeight: 600 }}>
+                    How to Use:
+                  </Typography>
+                  <Box component="ul" sx={{ pl: 2, mb: 2 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Automatically enabled by default
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      No setup required
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Provides location data and POI information
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Community-maintained and updated regularly
+                    </Typography>
+                  </Box>
+                  
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    href="https://www.openstreetmap.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ textTransform: 'none', fontWeight: 500 }}
+                  >
+                    Learn About OpenStreetMap
+                  </Button>
+                </Box>
+
+                {/* Facebook Graph API */}
+                <Box sx={{ mb: 4, pb: 3, borderBottom: '2px solid', borderColor: 'divider' }}>
+                  <Typography variant="h6" gutterBottom fontWeight={600}>
+                    5. Facebook Graph API
+                  </Typography>
+                  
+                  <Typography variant="body2" paragraph color="text.secondary">
+                    Access business pages, posts, reviews, hours, and contact details from Facebook.
+                  </Typography>
+                  
+                  <Alert severity="warning" sx={{ mb: 2 }}>
+                    <strong>Advanced:</strong> Requires Facebook App creation and permissions
+                  </Alert>
+                  
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1, fontWeight: 600 }}>
+                    Setup Steps:
+                  </Typography>
+                  <Box component="ol" sx={{ pl: 2, mb: 2 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Go to <a href="https://developers.facebook.com/" target="_blank" rel="noopener noreferrer" style={{fontWeight: 500}}>Facebook Developers</a>
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create or log in to your developer account
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create a new app (select "Business" type)
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Add "Facebook Login" and "Pages" products
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Get your App ID from app settings
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Enter App ID in Data Sources tab
+                    </Typography>
+                  </Box>
+                  
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    href="https://developers.facebook.com/apps"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ textTransform: 'none', fontWeight: 500 }}
+                  >
+                    Manage Facebook Apps
+                  </Button>
+                </Box>
+
+                {/* Instagram Basic Display API */}
+                <Box sx={{ mb: 4, pb: 3, borderBottom: '2px solid', borderColor: 'divider' }}>
+                  <Typography variant="h6" gutterBottom fontWeight={600}>
+                    6. Instagram Basic Display API
+                  </Typography>
+                  
+                  <Typography variant="body2" paragraph color="text.secondary">
+                    Access Instagram business profiles and basic information.
+                  </Typography>
+                  
+                  <Alert severity="warning" sx={{ mb: 2 }}>
+                    <strong>Advanced:</strong> Requires Facebook App and Instagram Business account
+                  </Alert>
+                  
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2, mb: 1, fontWeight: 600 }}>
+                    Setup Steps:
+                  </Typography>
+                  <Box component="ol" sx={{ pl: 2, mb: 2 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      First, create a Facebook App (see above)
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Add "Instagram Basic Display" product
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Create an Instagram App ID
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Set up OAuth redirect URLs
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Get your App ID from settings
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      Enter App ID in Data Sources tab
+                    </Typography>
+                  </Box>
+                  
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    href="https://developers.facebook.com/docs/instagram-basic-display-api/getting-started"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{ textTransform: 'none', fontWeight: 500 }}
+                  >
+                    Instagram API Guide
+                  </Button>
+                </Box>
+
+                {/* General Information */}
+                <Box sx={{ mb: 2, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
+                  <Typography variant="subtitle2" gutterBottom fontWeight={600}>
+                    💡 Pro Tips
+                  </Typography>
+                  <Box component="ul" sx={{ pl: 2, m: 0 }}>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      <strong>Start with Google Places</strong> - It's the most comprehensive and easiest
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      <strong>Add Foursquare & Yelp</strong> - For reviews and additional business details
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      <strong>OSM is always free</strong> - No API key needed, great for basic POI data
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      <strong>Social APIs are optional</strong> - Only needed for social media enrichment
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      <strong>Monitor your quotas</strong> - Check usage in each platform's dashboard
+                    </Typography>
+                    <Typography component="li" variant="body2" sx={{ mb: 0.5 }}>
+                      <strong>Keep API keys secure</strong> - Never share them publicly
+                    </Typography>
+                  </Box>
+                </Box>
+
+                <Box sx={{ mt: 3, p: 2, bgcolor: 'info.lighter', borderRadius: 2, border: 1, borderColor: 'info.main' }}>
+                  <Typography variant="subtitle2" gutterBottom fontWeight={600}>
+                    📚 Need More Help?
+                  </Typography>
+                  <Typography variant="body2" paragraph sx={{ mb: 1 }}>
+                    Visit our comprehensive documentation or check the official API documentation:
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      href="https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/justlist"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{ textTransform: 'none', fontWeight: 500 }}
+                    >
+                      JustList Documentation
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
             )}
