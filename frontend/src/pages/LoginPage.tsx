@@ -111,7 +111,7 @@ const LoginPage: React.FC = () => {
             {isLoading ? 'Logging in...' : 'Login'}
           </FormButton>
           
-          <FormLink href="/register">
+          <FormLink to="/register">
             Don't have an account? Register here
           </FormLink>
         </form>
