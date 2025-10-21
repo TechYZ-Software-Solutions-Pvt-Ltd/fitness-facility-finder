@@ -8,7 +8,7 @@ import logging
 from typing import List, Dict, Any, Optional, Tuple
 
 # Configuration constants (replacing deleted config.settings)
-GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place"
+GOOGLE_PLACES_BASE_URL = "https://maps.googleapis.com/maps/api/place/"
 USER_AGENT = "Fitness-Facility-Finder/2.0"
 MAX_RESULTS_LIMIT = 60
 DEFAULT_MAX_RESULTS = 20
