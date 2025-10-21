@@ -200,7 +200,7 @@ const RegisterPage: React.FC = () => {
             {isLoading ? 'Registering...' : success ? 'Registration Successful!' : 'Register'}
           </FormButton>
           
-          <FormLink href="/login">
+          <FormLink to="/login">
             Already have an account? Login here
           </FormLink>
         </form>

@@ -937,7 +937,7 @@ const Header: React.FC = () => {
                   p: 2,
                   borderRadius: 2
                 }}>
-              <Button
+                  <Button 
                     variant="outlined" 
                     size="medium"
                     sx={{ 
@@ -949,8 +949,8 @@ const Header: React.FC = () => {
                     }}
                   >
                     Reset to Defaults
-              </Button>
-              <Button
+                  </Button>
+                  <Button 
                     variant="contained" 
                     size="medium"
                     onClick={handleApplyDataSources}
@@ -1296,7 +1296,7 @@ const Header: React.FC = () => {
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                     <Button
-                variant="outlined"
+                      variant="outlined"
                       size="small"
                       href="https://github.com/TechYZ-Software-Solutions-Pvt-Ltd/justlist"
                       target="_blank"
