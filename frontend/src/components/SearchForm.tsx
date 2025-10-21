@@ -13,7 +13,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { facilitiesAPI } from '../services/api';
 import { Country, State as CState, City as CCity, ICountry, IState, ICity } from 'country-state-city';
-// import { FACILITY_TAXONOMY as FACILITY_CATEGORIES, DEFAULT_CATEGORY, DEFAULT_TYPE } from '../data/facility_taxonomy';
+import { FACILITY_TAXONOMY as FACILITY_CATEGORIES, DEFAULT_CATEGORY, DEFAULT_TYPE } from '../data/facility_taxonomy';
 import { 
   FormContainer, 
   FormTextField, 
@@ -63,8 +63,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [country, setCountry] = useState('India');
   const [state, setState] = useState<string>('');
   const [city, setCity] = useState('Mumbai');
-  const [facilityCategory, setFacilityCategory] = useState<string>('Fitness');
-  const [placeType, setPlaceType] = useState<string>('Gym');
+  const [facilityCategory, setFacilityCategory] = useState<string>(DEFAULT_CATEGORY);
+  const [placeType, setPlaceType] = useState<string>(DEFAULT_TYPE);
   const [maxResults, setMaxResults] = useState(20);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -255,14 +255,16 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
             value={facilityCategory}
             onChange={(cat) => {
               setFacilityCategory(cat);
-              const first = 'Gym';
-              setPlaceType(first);
+              // Set first type from the selected category
+              const typesForCategory = FACILITY_CATEGORIES[cat] || [];
+              if (typesForCategory.length > 0) {
+                setPlaceType(typesForCategory[0]);
+              }
             }}
-            options={[
-              { value: 'Fitness', label: 'Fitness' },
-              { value: 'Education', label: 'Education' },
-              { value: 'Healthcare', label: 'Healthcare' }
-            ]}
+            options={Object.keys(FACILITY_CATEGORIES).map(cat => ({
+              value: cat,
+              label: cat
+            }))}
             sx={{ minWidth: 160, flex: 1 }}
           />
 
@@ -270,11 +272,10 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
             label="Facility Type"
             value={placeType}
             onChange={setPlaceType}
-            options={[
-              { value: 'Gym', label: 'Gym' },
-              { value: 'Fitness Studio', label: 'Fitness Studio' },
-              { value: 'Yoga Studio', label: 'Yoga Studio' }
-            ]}
+            options={(FACILITY_CATEGORIES[facilityCategory] || []).map(type => ({
+              value: type,
+              label: type
+            }))}
             sx={{ minWidth: 160, flex: 1 }}
           />
 
