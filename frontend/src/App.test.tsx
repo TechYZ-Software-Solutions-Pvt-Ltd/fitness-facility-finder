@@ -1,10 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import App from './App';
 
 // Basic test to prevent CI/CD failures
 test('renders without crashing', () => {
-  render(<App />);
-  // This test ensures the app renders without throwing errors
-  expect(document.body).toBeInTheDocument();
+  // Simple test that just renders the app without throwing errors
+  const { container } = render(<App />);
+  expect(container).toBeInTheDocument();
 });
